@@ -10,7 +10,7 @@ class PlaceController extends Controller
 {
     public function index(){
         $places = place::all();
-        return view('places.index', compact('places'));
+        return view('admin.pages.places.index', compact('places'));
     }
 
     public function create(){
