@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class StoreUpdatePlace extends FormRequest
 {
@@ -38,6 +39,10 @@ class StoreUpdatePlace extends FormRequest
                 'required',
                 'min:3',
                 'max:100'
+            ],
+            'imagem' => [
+                'nullable',
+                'image'
             ]        
         ];
         
@@ -45,5 +50,11 @@ class StoreUpdatePlace extends FormRequest
         //return [
             //
         //];
+    }
+
+    public function messages(){
+        return [
+            'nome.required' => 'Nome é obrigatório'
+        ];
     }
 }

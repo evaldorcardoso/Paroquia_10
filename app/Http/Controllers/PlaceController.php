@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePlace;
 use Illuminate\Http\Request;
 
 class PlaceController extends Controller
@@ -11,6 +12,9 @@ class PlaceController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
+        /*$this->middleware('auth')->only([
+            'create', 'store'
+        ]);*/
     }
 
     /**
@@ -20,8 +24,8 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        //return view('admin.pages.places.index');
-        return 'listagem das congregações';
+        return view('admin.pages.places.index');
+        //return 'listagem das congregações';
     }
 
     /**
@@ -31,18 +35,19 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.places.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdatePlace;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePlace $request)
     {
-        //
+        
+        dd('cadastrando...');
     }
 
     /**
@@ -64,7 +69,7 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.pages.places.edit',compact('id'));
     }
 
     /**
@@ -76,7 +81,7 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("editando {$id}");
     }
 
     /**
