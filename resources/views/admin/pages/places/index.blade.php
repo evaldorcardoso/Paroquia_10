@@ -19,3 +19,9 @@
 
     {{ $places }}    
 @endsection
+
+@push('styles')
+    <style>
+        
+    </style>
+@endpush
