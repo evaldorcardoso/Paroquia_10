@@ -3,18 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdatePlace;
+use App\Models\place;
 use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
     protected $request;
+    private $repository;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, place $place)
     {
         $this->request = $request;
+        $this->repository = $place;
         /*$this->middleware('auth')->only([
             'create', 'store'
         ]);*/
+        /*$this->middleware('auth')->except([
+            'index',
+            'show'
+        ]);*/
+
     }
 
     /**
@@ -24,7 +32,8 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.places.index');
+        $places = $this->repository->paginate();
+        return view('admin.pages.places.index',compact('places'));
         //return 'listagem das congregações';
     }
 
@@ -46,8 +55,9 @@ class PlaceController extends Controller
      */
     public function store(StoreUpdatePlace $request)
     {
-        
-        dd('cadastrando...');
+        $data = $request->only('nome','localidade','pastor');
+        $this->repository->create($data);
+        return redirect()->route('places.index');        
     }
 
     /**
@@ -58,7 +68,10 @@ class PlaceController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$place = $this->repository->where('id', $id)->first()){
+            return redirect()->back();
+        }
+        return view('admin.pages.places.show',compact('place'));
     }
 
     /**
@@ -69,19 +82,27 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.places.edit',compact('id'));
+        if(!$place = $this->repository->where('id', $id)->first()){
+            return redirect()->back();
+        }
+        return view('admin.pages.places.edit',compact('place'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdatePlace;  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePlace $request, $id)
     {
-        dd("editando {$id}");
+        if(!$place = $this->repository->where('id', $id)->first()){
+            return redirect()->back();
+        }
+
+        $place->update($request->all());
+        return redirect()->route('places.index');
     }
 
     /**
@@ -92,6 +113,19 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!$place = $this->repository->where('id', $id)->first()){
+            return redirect()->back();            
+        }
+
+        $place->delete();
+
+        return redirect()->route('places.index');
+    }
+
+    /**
+     * Search PLaces
+     */
+    public function search(Request $request){
+        $request->all();
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\{
 };
 use Illuminate\Support\Facades\Route;
 
+Route::any('places/search',[PlaceController::class, 'search'])->name('places.search');
 Route::resource('places',PlaceController::class);
 /*
 Route::get('places', [PlaceController::class, 'index'])->name('places.index');
