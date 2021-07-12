@@ -9,9 +9,18 @@
     @stack('styles')
 </head>
 <body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/img/logo.png" alt="" width="30" height="35" class="d-inline-block align-text-top">
+            Paróquia 10
+          </a>
+        </div>
+      </nav>
     <div class="container">
         @yield('content')
     </div>    
+
 
     @stack('scripts')
 </body>
