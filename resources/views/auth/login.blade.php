@@ -3,6 +3,15 @@
 @section('title','Entrar')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <main class="form-signin">
     <form  class="text-center" method="POST" action="{{ route('login') }}">
         @csrf
@@ -10,11 +19,11 @@
         <h1 class="h3 mb-3 fw-normal">Entrar no aplicativo</h1>
   
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email" class="form-control" name="email">
             <label for="floatingInput">Email</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" name="password">
             <label for="floatingPassword">Senha</label>
         </div>
     
