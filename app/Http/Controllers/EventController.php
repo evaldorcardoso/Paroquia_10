@@ -43,11 +43,14 @@ class EventController extends Controller
     {
         $data = $request->all();
         $data['id_user']=Auth::user()->id;
+        $data['event_at']=$data['event_at_d'].' '.$data['event_at_h'];
+        unset($data['event_at_d']);
+        unset($data['event_at_h']);
         //$auth = Auth::user()->id;
         //dd($data);
         Event::create($data);
         return redirect()
-                ->route('events.index')
+                ->route('events.index',Auth::user()->id)
                 ->with('message', 'Evento criado com sucesso!');
     }
 
@@ -59,7 +62,9 @@ class EventController extends Controller
      */
     public function show($user,$id)
     {
-        dd('id='.$id.', user='.$user);
+        $congregacao = User::find($user);
+        $event = Event::find($id);
+        return view('admin.pages.events.show',compact('congregacao'),compact('event'));
     }
 
     /**
@@ -70,7 +75,9 @@ class EventController extends Controller
      */
     public function edit($id,$user)
     {
-        //
+        $congregacao = User::find($user);
+        $event = Event::find($id);
+        return view('admin.pages.events.edit',compact('congregacao'),compact('event'));
     }
 
     /**
@@ -80,9 +87,23 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $user)
     {
-        //
+        $congregacao = User::find($user);
+        if(!$event = Event::find($id)){
+            return redirect()->back();
+        }
+        $data = $request->all();
+        $data['event_at']=$data['event_at_d'].' '.$data['event_at_h'];
+        unset($data['event_at_d']);
+        unset($data['event_at_h']);
+        //dd($data);
+
+        $event->update($data);
+
+        return redirect()
+                ->route('events.index',$congregacao['id'])
+                ->with('message', 'Evento atualizado com sucesso!');
     }
 
     /**

@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div class="form-group">
         <label class="bmd-label-floating">Título do evento</label>
-        <input id="titulo" type="text" class="form-control">
+        <input name="title" type="text" class="form-control" value={{ $event['title'] ?? old('title') }}>
       </div>
     </div>
   </div>
@@ -13,13 +13,13 @@
     <div class="col-md-6">
       <div class="form-group bmd-form-group is-filled">
         <label class="bmd-label-floating">Data</label>
-        <input id="data" type="date" class="form-control">
+        <input name="event_at_d" type="date" class="form-control" value="{{ isset($event) ? substr($event['event_at'],0,10) : old('event_at_d') }}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group bmd-form-group is-filled">
         <label class="bmd-label-floating">Hora</label>
-        <input id="hora" type="time" class="form-control">
+        <input name="event_at_h" type="time" class="form-control" value="{{ isset($event) ? substr($event['event_at'],11) : old('event_at_h') }}">
       </div>
     </div>
   </div>              
@@ -28,7 +28,7 @@
       <div class="form-group">
         <div class="form-group">
           <label>Descrição do evento</label>
-          <textarea id="descricao" class="form-control" rows="4"></textarea>
+          <textarea name="description" class="form-control" rows="4">{{ $event['description'] ?? old('description') }}</textarea>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="col-lg-12">
       <div class="form-group">
         <label class="bmd-label-floating">Local do evento</label>
-        <input id="endereco" type="text" class="form-control">
+        <input name="address" type="text" class="form-control" value="{{ $event['address'] ?? old('address') }}">
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
       <div class="form-group">
         <div class="form-group">
           <label>Auxiliares</label>
-          <textarea id="auxiliares" class="form-control" rows="5"></textarea>
+          <textarea name="auxiliars" class="form-control" rows="5">{{ $event['auxiliars'] ?? old ('auxiliars') }}</textarea>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
       <div class="form-group">
         <div class="form-group">
           <label>Leituras</label>
-          <textarea id="leituras" class="form-control" rows="5"></textarea>
+          <textarea name="readings" class="form-control" rows="5">{{ $event['readings'] ?? old('readings') }}</textarea>
         </div>
       </div>
     </div>
@@ -66,9 +66,12 @@
       <div class="form-group">
         <div class="form-group">
           <label>Músicas</label>
-          <textarea id="musica" class="form-control" rows="3"></textarea>
+          <textarea name="musics" class="form-control" rows="3">{{ $event['musics'] ?? old('musics') }}</textarea>
         </div>
       </div>
     </div>
   </div>
-  <button type="button" onclick="salvarEvento();" class="btn btn-rose pull-right">salvar<div class="ripple-container"></div></button>
+  <div class="pull-right">
+    <a href="{{ route('events.index',$congregacao['id']) }}">Voltar</a>
+    <button type="submit" class="btn btn-rose" style="margin-left: 30px;">{{ isset($event) ? 'Atualizar Evento' : 'Criar Evento' }}<div class="ripple-container"></div></button>
+  </div>
