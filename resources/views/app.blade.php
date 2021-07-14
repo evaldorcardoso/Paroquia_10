@@ -27,7 +27,7 @@
                             <tbody id="tab_congregacoes">                                
                                 @foreach ($users as $user)
                                 <tr>
-                                    <td><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></td>                                    
+                                    <td><a href="{{ route('events.index', $user->id) }}">{{ $user->name }}</a></td>                                    
                                 </tr>
                                 @endforeach
                             <!--<tr onclick="document.location.href = '/congregacao.html?id=1'">

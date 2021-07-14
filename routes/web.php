@@ -8,11 +8,16 @@ use App\Http\Controllers\{
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::any('places/search',[PlaceController::class, 'search'])->name('places.search');
-Route::resource('/places', PlaceController::class)->middleware('auth');
-Route::resource('/events', EventController::class)->middleware('auth');
+//Route::any('places/search',[PlaceController::class, 'search'])->name('places.search');
+//Route::resource('/places', PlaceController::class)->middleware('auth');
+
+
+//Route::any('/users/{user}/events',[EventController::class,'index'])->name('users.events');
+//Route::resource('/events', EventController::class)->middleware('auth');
+Route::resource('/users/{user}/events',EventController::class);
 Route::any('/events/search',[EventController::class, 'search'])->name('events.search');
 Route::resource('/users', UserController::class);
+
 /*
 Route::get('places', [PlaceController::class, 'index'])->name('places.index');
 Route::get('places/create', [PlaceController::class, 'create'])->name('places.create');
@@ -23,9 +28,10 @@ Route::post('places', [PlaceController::class, 'store'])->name('places.store');
     return 'login';
 })->name('login');*/
 Route::redirect('/home', '/users');
-Route::get('/', function () {
-    return redirect('/users');
-});
+Route::redirect('/', '/users');
+//Route::get('/', function () {
+//    return redirect('/users');
+//});
 /*Route::get('/home', function (){
     //return view('admin.pages.places.index');
 })->middleware('auth');*/

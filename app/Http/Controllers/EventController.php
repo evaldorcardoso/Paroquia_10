@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,10 +14,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user)
     {
-        $events = Event::latest()->paginate();
-        return view('admin.pages.events.index', compact('events'));
+        $congregacao = User::find($user);
+        $events = Event::where('id_user','=',$user)
+                            ->paginate();        
+        return view('admin.pages.events.index', compact('events'),compact('congregacao'));
     }
 
     /**
@@ -53,9 +56,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user,$id)
     {
-        //
+        dd('id='.$id.', user='.$user);
     }
 
     /**
@@ -64,7 +67,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$user)
     {
         //
     }

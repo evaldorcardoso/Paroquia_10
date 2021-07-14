@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -47,7 +48,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        //$events = Event::latest()->paginate();
+        //return view('admin.pages.events.index', compact('events'));
     }
 
     /**
