@@ -27,9 +27,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($user)
     {
-        return view('admin.pages.events.create');
+        $congregacao = User::find($user);
+        return view('admin.pages.events.create',compact('congregacao'));
     }
 
     /**
