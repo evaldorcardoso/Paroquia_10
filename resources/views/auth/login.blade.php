@@ -45,11 +45,9 @@
               <div id="status_entrar" style="display: none"><img src="images/giphy.gif" style="height: 15px;margin-top: 0px;"></div>
               <div class="card-footer justify-content-center">
                 <button type="submit" class="btn btn-rose btn-link btn-lg">Entrar</button>            
-              </div>		                
-              <br>
+              </div>
               <div class="card-footer justify-content-center">
-                <a href="{{ route('register') }}" class="link-primary">Criar conta</a>
-                <a onclick="">Esqueci minha senha</a>
+                <a href="{{ route('register') }}" class="link-primary">Criar conta</a><p>
               </div>
             </div>
           </form>
