@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Http\Requests\StoreUpdateUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $request;
+    private $repository;
+
+
+    /**
+     * Create a new controller instance.
+     * 
+     * @param  App\Http\Requests\StoreUpdateUser  $request
+     */
+    public function __construct(Request $request, User $user)
+    {
+        $this->request = $request;    
+        $this->repository = $user;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate();
+        $users = $this->repository->latest()->paginate();
         return view('app', compact('users'));
     }
 
@@ -26,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.places.create');
     }
 
     /**
@@ -55,24 +70,37 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user)
     {
-        //
+        if(!$user = User::find($user)){
+            return redirect()->back();    
+        }
+        return view('admin.pages.places.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     *     
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        if(!$user = User::find($id)){
+            return redirect()->back();
+        }
+        //$data = $request->all();
+        $data = $this->request->all();
+        $data['visible'] = $data['visible']=='on' ? 1 : 0;        
+        
+        $user->update($data);
+
+        return redirect()
+                ->route('events.index',$user['id'])
+                ->with('message', 'Dados atualizados com sucesso!');
     }
 
     /**

@@ -50,15 +50,9 @@
             </li>
             @auth
             <li id="li_entrar" class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{ route('users.edit',Auth::user()->id) }}">
                 <i class="material-icons"></i>
-                <p>Olá {{ Auth::user()->name }} </p>
-              </a>
-            </li>
-            <li id="li_alterar" class="nav-item" style="display: none;">
-              <a class="nav-link" href="#">
-                <i class="material-icons"></i>
-                <p>Alterar</p>
+                <p>Dados Pessoais </p>
               </a>
             </li>
             <li id="li_sair" class="nav-item">
