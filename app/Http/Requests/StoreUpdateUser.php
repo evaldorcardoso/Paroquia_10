@@ -53,9 +53,9 @@ class StoreUpdateUser extends FormRequest
             'address.required' => 'Endereço é obrigatório',
             'address.min' => 'Endereço deve ter no mínimo 3 caracteres',
             'address.max' => 'Endereço deve ter no máximo 200 caracteres',
-            'shepherd.required' => 'Shepherd é obrigatório',
-            'shepherd.min' => 'Shepherd deve ter no mínimo 3 caracteres',
-            'shepherd.max' => 'Shepherd deve ter no máximo 200 caracteres'
+            'shepherd.required' => 'Nome do Pastor é obrigatório',
+            'shepherd.min' => 'Nome do Pastor deve ter no mínimo 3 caracteres',
+            'shepherd.max' => 'Nome do Pastor deve ter no máximo 200 caracteres'
         ];
     }    
 }

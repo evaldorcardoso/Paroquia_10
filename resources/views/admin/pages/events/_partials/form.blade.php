@@ -71,11 +71,13 @@
       </div>
     </div>
   </div>
+  @if (isset($event))
   <div class="pull-left" style="margin-top: 10px">
     <a href="{{ route('events.destroy',array('event' => $event['id'], 'user' => $congregacao['id'])) }}">
       <i class="material-icons" style="padding-left: 10px;color: #f44336;">delete</i>
     </a>    
   </div>
+  @endif  
   <div class="pull-right">
     <a href="{{ route('events.index',$congregacao['id']) }}">Voltar</a>
     <button type="submit" class="btn btn-rose" style="margin-left: 30px;">{{ isset($event) ? 'Atualizar Evento' : 'Criar Evento' }}<div class="ripple-container"></div></button>

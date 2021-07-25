@@ -22,7 +22,8 @@ class User extends Authenticatable
         'password',
         'description',
         'visible',
-        'shepherd'
+        'shepherd',
+        'address'
     ];
 
     /**

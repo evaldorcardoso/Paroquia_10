@@ -29,7 +29,7 @@
             <h1 class="h3 mb-3 fw-normal">Nova Congregação</h1>
       
             <div class="form-floating">
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                 <label for="name">Nome da Congregação</label>
             </div>
             @error('name')
@@ -38,7 +38,15 @@
               </span>
             @enderror
             <div class="form-floating">
-                <input type="email" class="form-control" name="email">
+              <input type="text" class="form-control" name="address" value="{{ old('address') }}">
+              <label for="address">Endereço da Congregação</label>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" name="shepherd" value="{{ old('shepherd') }}">
+              <label for="shepherd">Nome do Pastor</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                 <label for="email">Email</label>
             </div>
             @error('email')

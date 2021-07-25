@@ -33,7 +33,7 @@
                 <!--<p class="card-description text-center">Or Be Classical</p>-->
                 <span class="bmd-form-group">
                   <div class="input-group">
-                    <input type="email" name="email" email="true" class="form-control" placeholder="Email...">
+                    <input type="email" name="email" email="true" class="form-control" placeholder="Email..." value="{{ old('email') }}">
                   </div>
                 </span>
                 <span class="bmd-form-group">
@@ -42,7 +42,7 @@
                   </div>
                 </span>
               </div>
-              <div id="status_entrar" style="display: none"><img src="images/giphy.gif" style="height: 15px;margin-top: 0px;"></div>
+              <!--<div id="status_entrar" style="display: none"><img src="images/giphy.gif" style="height: 15px;margin-top: 0px;"></div>-->
               <div class="card-footer justify-content-center">
                 <button type="submit" class="btn btn-rose btn-link btn-lg">Entrar</button>            
               </div>

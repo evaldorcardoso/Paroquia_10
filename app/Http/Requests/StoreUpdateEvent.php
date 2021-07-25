@@ -29,6 +29,14 @@ class StoreUpdateEvent extends FormRequest
                 'min:5',
                 'max:50'                
             ],
+            'event_at_d' => [
+                'required',
+                'date'
+            ],        
+            'event_at_h' => [        
+                'required',
+                'date_format:H:i'
+            ],                
             'address' => [
                 'required',
                 'min:5',
@@ -45,6 +53,10 @@ class StoreUpdateEvent extends FormRequest
             'title.required' => 'Título é obrigatório',
             'title.min' => 'Título deve ter no mínimo 5 caracteres',
             'title.max' => 'Título deve ter no máximo 50 caracteres',
+            'event_at_d.required' => 'Data do evento é obrigatório',
+            'event_at_d.date' => 'Data do evento deve ser uma data válida',
+            'event_at_h.required' => 'Hora do evento é obrigatório',
+            'event_at_h.time' => 'Hora do evento deve ser uma hora válida',
             'address' => 'Endereço é obrigatório',
             'address.min' => 'Endereço deve ter no mínimo 5 caracteres',
             'address.max' => 'Endereço deve ter no máximo 100 caracteres'

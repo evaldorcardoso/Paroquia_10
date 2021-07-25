@@ -17,14 +17,14 @@
         <div class="col-lg-12 col-md-12" style="padding: 0">
           <div class="card">            
             <div class="card-header card-header-rose">
-              <h4 class="card-title">{{ $congregacao['name'] }}</h4>                            
+              <h4 class="card-title"><i class="material-icons" style="vertical-align: text-bottom;">home</i>{{ $congregacao['name'] }}</h4>                            
               <p class="card-category">Eventos</p>
             </div>
             <div class="card-body table-responsive">
               @auth
               <div class="text-left">
                 <a href="{{ route('events.create',array('user' => $congregacao['id'])) }}">
-                <button type="button" class="btn btn-rose" >Cadastrar novo Evento<div class="ripple-container"></div></button>
+                <button type="button" class="btn btn-rose"><i class="material-icons">add</i> Novo Evento<div class="ripple-container"></div></button>
                 </a>
               </div>            
               @endauth
@@ -37,16 +37,18 @@
                   <tr>
                     <td class="td-name">
                       <a style="font-size:130%" href="{{ route('events.show',array('event' => $event['id'], 'user' => $congregacao['id'])) }}">{{ $event->title }}</a><br>
-                      <small style="font-size:90%;color: #999;font-weight: 300;">{{ date('d/m/Y',strtotime($event['event_at']))  }} às {{ date('H:i',strtotime($event['event_at'])) }} </small>
+                      @if ($event['event_at']<date('Y-m-d'))
+                      <span class="badge badge-danger" style=""><i class="material-icons" style="vertical-align: middle;font-size: 16px;">warning</i>Evento já aconteceu</span>    
+                      @endif                      
+                      <small style="font-size:90%;color: #999;font-weight: 300;">{{ date('d/m/Y',strtotime($event['event_at']))  }} às {{ date('H:i',strtotime($event['event_at'])) }} </small><br>
+                      <small style="font-size:90%;color: #999;font-weight: 300;"><i class="material-icons" style="vertical-align: text-bottom;">place</i>{{ $event['address']  }} </small>
                     </td>                    
                     @auth
                     <td width="60">                      
                       <a href="{{ route('events.edit',array('user' => $congregacao['id'], 'event' => $event->id)) }}">
                         <i class="material-icons" style="color: #ff9800;" onclick="seleciona_evento(110,1);">edit</i>
                       </a>
-                    </td>
-                    @else
-                    <td width="100">{{ $event->event_at }}</td>
+                    </td>                    
                     @endauth
                   </tr>
                   @endforeach                            

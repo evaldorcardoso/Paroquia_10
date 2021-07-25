@@ -91,7 +91,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateEvent $request, $id, $user)
+    public function update(StoreUpdateEvent $request, $user, $id)
     {
         $congregacao = User::find($user);
         if(!$event = Event::find($id)){
