@@ -27,7 +27,7 @@ class StoreUpdateUser extends FormRequest
         $rules = [
             'name' => [
                 'required',
-                'min:3',
+                'min:5',
                 'max:100'
             ],
             'address' => [
@@ -39,7 +39,7 @@ class StoreUpdateUser extends FormRequest
                 'required',
                 'min:3',
                 'max:200'
-            ]            
+            ]                  
         ];
 
         return $rules;
@@ -47,7 +47,15 @@ class StoreUpdateUser extends FormRequest
 
     public function messages(){
         return [
-            'name.required' => 'Nome é obrigatório'
+            'name.required' => 'Nome é obrigatório',
+            'name.min' => 'Nome deve ter no mínimo 3 caracteres',
+            'name.max' => 'Nome deve ter no máximo 100 caracteres',
+            'address.required' => 'Endereço é obrigatório',
+            'address.min' => 'Endereço deve ter no mínimo 3 caracteres',
+            'address.max' => 'Endereço deve ter no máximo 200 caracteres',
+            'shepherd.required' => 'Shepherd é obrigatório',
+            'shepherd.min' => 'Shepherd deve ter no mínimo 3 caracteres',
+            'shepherd.max' => 'Shepherd deve ter no máximo 200 caracteres'
         ];
     }    
 }

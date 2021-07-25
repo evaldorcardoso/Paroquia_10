@@ -87,13 +87,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(StoreUpdateUser $request ,$id)
     {
         if(!$user = User::find($id)){
             return redirect()->back();
         }
-        //$data = $request->all();
-        $data = $this->request->all();
+        $data = $request->all();
+        //$data = $this->request->all();
         $data['visible'] = $data['visible']=='on' ? 1 : 0;        
         
         $user->update($data);

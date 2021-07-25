@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\{
     EventController,
+    HomeController,
     PlaceController,
     UserController
 };
@@ -27,8 +28,9 @@ Route::post('places', [PlaceController::class, 'store'])->name('places.store');
 /*Route::get('/login', function (){
     return 'login';
 })->name('login');*/
-Route::redirect('/home', '/users');
-Route::redirect('/', '/users');
+//Route::redirect('/home', '/users');
+Route::get('/redirect', [HomeController::class, 'index']);
+//Route::redirect('/', '/users');
 //Route::get('/', function () {
 //    return redirect('/users');
 //});

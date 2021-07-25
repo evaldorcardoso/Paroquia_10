@@ -16,8 +16,8 @@
         </button>
         <span id="mensagem_notificacao_ok">This is a notification with close button.</span>
     </div>
-    <div class="col-md-12" style="padding-right:0px;padding-left:0px;">
-        <div class="card card-profile" style="margin-bottom: 5px;margin-top: 120px;">
+    <div class="col-md-12" style="padding-right:0px;padding-left:0px;margin-top: 120px;">
+        <!--<div class="card card-profile" style="margin-bottom: 5px;">
           <div class="card-avatar">
             <a href="#">
               <img id="img_congregacao" src="https://paroquia10.com/uploads/18141congregacao_1.jpg" />                  
@@ -27,8 +27,8 @@
             <a href="#foto" class="btn btn-rose btn-round image-preview-input-title" onclick="$('#imagec').click();">Alterar Foto</a>
             <input id='imagec' type="file" accept="image/*" name="imagec"  style="display: none;"/>
             <input id="congregacao_imagem" type="text" class="form-control image-preview-filename" disabled="disabled" 
-            style="display: none;"> <!-- don't give a name === doesn't send on POST/GET  -->
-          </div>
+            style="display: none;">
+          </div>-->
         </div>
         <div class="card ">
             <div class="card-header ">

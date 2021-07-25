@@ -20,8 +20,8 @@
             <div class="card card-stats">
                 <div id="card_header" class="card-header card-header-rose card-header-icon">
                     <div class="card-icon"><i class="material-icons">date_range</i></div>
-                    <h3 id="titulo_view1" class="card-title">Editar Evento</h3>
-                    <h5 id="titulo2_view1" style="color: #999999;text-transform: none;">{{ $congregacao['name'] }}</h5>
+                    <h3 class="card-title">{{ $congregacao['name'] }}</h3>
+                    <h5 style="color: #999999;text-transform: none;">Editar Evento</h5>
                 </div>
                 <div class="card-body" style="text-align: left;">  
                     <form id="form_evento" action="{{ route('events.update', array('event' => $event['id'],'user' => $congregacao['id'])) }}" method="post" enctype="multipart/form-data">              

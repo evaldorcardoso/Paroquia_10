@@ -4,7 +4,7 @@
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#eee">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="manifest.json">
+  <!--<link rel="manifest" href="manifest.json">-->
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- ios icons -->
@@ -34,7 +34,7 @@
     
     <div class="wrapper">
       
-      <div class="sidebar" data-color="rose" data-background-color="white" data-image="{{ asset('assets/img/sidebar-1.jpg') }}">
+      <div class="sidebar" data-color="rose" data-background-color="white" data-image="{{ asset('img/sidebar-1.jpg') }}">
         <div class="logo">
           <a href="http://www.paroquia10.com" class="simple-text logo-normal">
             <img src="{{ asset('img/logo.png') }}" style="width:80px">

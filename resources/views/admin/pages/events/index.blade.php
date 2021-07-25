@@ -17,8 +17,8 @@
         <div class="col-lg-12 col-md-12" style="padding: 0">
           <div class="card">            
             <div class="card-header card-header-rose">
-              <h4 class="card-title">Eventos</h4>                            
-              <p class="card-category">{{ $congregacao['name'] }}</p>
+              <h4 class="card-title">{{ $congregacao['name'] }}</h4>                            
+              <p class="card-category">Eventos</p>
             </div>
             <div class="card-body table-responsive">
               @auth
@@ -35,11 +35,15 @@
                 <tbody>
                   @foreach ($events as $event)
                   <tr>
-                    <td><a href="{{ route('events.show',array('event' => $event['id'], 'user' => $congregacao['id'])) }}">{{ $event->title }}</a></td>
-                    
+                    <td class="td-name">
+                      <a style="font-size:130%" href="{{ route('events.show',array('event' => $event['id'], 'user' => $congregacao['id'])) }}">{{ $event->title }}</a><br>
+                      <small style="font-size:90%;color: #999;font-weight: 300;">{{ date('d/m/Y',strtotime($event['event_at']))  }} às {{ date('H:i',strtotime($event['event_at'])) }} </small>
+                    </td>                    
                     @auth
-                    <td width="60">
-                      <a href="{{ route('events.edit',array('event' => $event->id, 'user' => $congregacao['id'])) }}">Editar</a>
+                    <td width="60">                      
+                      <a href="{{ route('events.edit',array('user' => $congregacao['id'], 'event' => $event->id)) }}">
+                        <i class="material-icons" style="color: #ff9800;" onclick="seleciona_evento(110,1);">edit</i>
+                      </a>
                     </td>
                     @else
                     <td width="100">{{ $event->event_at }}</td>

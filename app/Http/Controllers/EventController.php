@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateEvent;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class EventController extends Controller
     {
         $congregacao = User::find($user);
         $events = Event::where('id_user','=',$user)
+                            ->orderBy('event_at', 'asc')
                             ->paginate();        
         return view('admin.pages.events.index', compact('events'),compact('congregacao'));
     }
@@ -39,7 +41,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateEvent $request)
     {
         $data = $request->all();
         $data['id_user']=Auth::user()->id;
@@ -73,10 +75,12 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$user)
+    public function edit($user,$id)
     {
+        //dd($user);
         $congregacao = User::find($user);
         $event = Event::find($id);
+        //dd($congregacao);
         return view('admin.pages.events.edit',compact('congregacao'),compact('event'));
     }
 
@@ -87,7 +91,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $user)
+    public function update(StoreUpdateEvent $request, $id, $user)
     {
         $congregacao = User::find($user);
         if(!$event = Event::find($id)){
@@ -114,7 +118,14 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+        if(!$event = Event::where('id', $id)
+                                ->first()){
+            return redirect()->back();            
+        }
+
+        $event->delete();
+        return redirect()->route('events.index',Auth::user()->id);
     }
 
     public function search(Request $request)

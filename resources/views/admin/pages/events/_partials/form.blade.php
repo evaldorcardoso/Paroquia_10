@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div class="form-group">
         <label class="bmd-label-floating">Título do evento</label>
-        <input name="title" type="text" class="form-control" value={{ $event['title'] ?? old('title') }}>
+        <input name="title" type="text" class="form-control" value="{{ $event['title'] ?? old('title') }}">
       </div>
     </div>
   </div>
@@ -70,6 +70,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="pull-left" style="margin-top: 10px">
+    <a href="{{ route('events.destroy',array('event' => $event['id'], 'user' => $congregacao['id'])) }}">
+      <i class="material-icons" style="padding-left: 10px;color: #f44336;">delete</i>
+    </a>    
   </div>
   <div class="pull-right">
     <a href="{{ route('events.index',$congregacao['id']) }}">Voltar</a>

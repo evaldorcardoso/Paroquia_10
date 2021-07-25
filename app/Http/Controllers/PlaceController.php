@@ -18,10 +18,11 @@ class PlaceController extends Controller
         /*$this->middleware('auth')->only([
             'create', 'store'
         ]);*/
-        /*$this->middleware('auth')->except([
+        $this->middleware('auth')->except([
             'index',
-            'show'
-        ]);*/
+            'show',
+            'store'
+        ]);
 
     }
 
