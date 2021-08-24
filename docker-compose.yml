@@ -44,6 +44,18 @@ services:
           test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
           retries: 3
           timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin:latest
+        links:
+            - mysql
+        container_name: phpmyadmin_laravel
+        restart: always
+        ports:
+            - 88:80
+        environment:
+            - PMA_ARBITRARY=1 
+        networks:
+            - sail
     redis:
         image: 'redis:alpine'
         ports:
