@@ -12,19 +12,22 @@ Paróquia10 é um aplicativo PWA feito para congregações/igrejas que desejam t
 * [Laravel](https://laravel.com/) - Framework PHP
 * [MySQL](https://www.mysql.com/) - Banco de Dados
 * [Docker] (https://www.docker.com/) - Ambiente de execução com containers
+* [Composer] (https://getcomposer.org/) - Gestor de Dependências PHP
 
-## 🛠️ Como fazer funcionar:
-###  É necessário ter o composer instalado na máquina e o Docker
+## 🛠️ 1- Como fazer funcionar a API em Laravel:
+###  É necessário ter o composer(https://getcomposer.org/) instalado na máquina e o Docker
  * Navegar até a pasta do projeto, abrir o terminal e digitar:
  * Copiar o arquivo **.env.example** para o **.env** no mesmo caminho   
  * Instalar as dependências: **composer require laravel/sail --dev**
  * Criar o alias para o sail: **alias sail='bash vendor/bin/sail'**
  * Subir os containers: **sail up -d**
- * Acessar no navegador: http://localhost:88
- * Logar no phpmyadmin com **Servidor: mysql**, **Usuário:root**
- * Criar um banco de dados chamado **paroquia10** com a colattion **utf8mb4_unicode_ci**
  * Voltar no terminal e rodar as migrations: **sail artisan migrate**
- * Para acessar o sistema abrir no navegador **http://localhost/users**
+ * Ainda no terminal gerar as chaves de autenticação: **sail artisan passport:keys**
+ * A API estará rodando no endereço: **http://localhost**
+
+
+## 🛠️ 2- Como fazer funcionar o Front-End:
+* Em desenvolvimento ainda...
 
 ## ✒️ Autores
 
