@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CongregationController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -20,5 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
-    Route::resource('congregations', CongregationController::class);
+            Route::resource('congregations', CongregationController::class);                
+});
+Route::middleware('auth:api')
+        ->prefix('congregations/{congregation}')    
+        ->group(function () {
+            Route::resource('events', EventController::class);
 });

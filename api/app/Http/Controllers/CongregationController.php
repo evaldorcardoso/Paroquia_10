@@ -38,12 +38,10 @@ class CongregationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'description' => 'string',
             'address' => 'string|max:200',
             'pastor' => 'string|max:100',
             'lat' => 'numeric',
-            'lon' => 'numeric',
-            'image' => 'string'
+            'lon' => 'numeric'
         ]);
 
         $congregation = new Congregation();
@@ -88,7 +86,6 @@ class CongregationController extends Controller
 
         // $updated = $congregation->fill($request->all())->save();
         
-
         $congregation->name = $request->name;
         $congregation->address = $request->address;
         $congregation->pastor = $request->pastor;

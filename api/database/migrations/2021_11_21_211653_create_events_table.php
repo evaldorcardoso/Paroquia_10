@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->index('congregation_id');
             $table->string('title', 50);
             $table->datetime('event_at');
+            $table->string('address', 200)->nullable();
             $table->longText('description')->nullable();
             $table->longText('readings')->nullable();
             $table->timestamps();

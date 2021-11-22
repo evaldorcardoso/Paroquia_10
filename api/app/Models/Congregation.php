@@ -19,4 +19,9 @@ class Congregation extends Model
         'active',
         'image'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }
