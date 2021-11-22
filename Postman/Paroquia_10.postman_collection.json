@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "57a30253-214d-487d-8465-d711a5cefca9",
+		"name": "Paroquia_10",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User - Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User - Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Congregations",
+			"item": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYjE1NmI0MmJjYWYwZDlkZDg3ZTFjMDgyZWJiNGQ5YTcwNDk4ZGYxODFjNTNlYzgwOGZiNjVhZTc1ODlmNTFlMzE4MzUzNzUwZTEyYWM0ODEiLCJpYXQiOjE2Mzc2MDAyOTcuMDMxMTQxLCJuYmYiOjE2Mzc2MDAyOTcuMDMxMTQ0LCJleHAiOjE2NjkxMzYyOTcuMDI0OTksInN1YiI6IjEiLCJzY29wZXMiOltdfQ.r38fOY08YsGoeeLbLJ49qEBcLWTqEW0Cjx9_Njlrxand9ZOZoLverD3_xIEvW1bc8mHHybCBV7Z5AZPQ_gDYSSTBO9PPeR6r4CTJFYjCHfGDSvWim325YYzhNQZoYU3QtxW0Xk3btAXu7CqIN38BpCGr4tFq5CHT5cl3iadb0cj_s9GOz-MFUjUB4UUnzaoJOKgww49KLRcJdDvnUjvdXs-ydf8t4XkZj5kunitvF_dhxihHrjT3m9EXZmHEgxN03cH3cW9QkhMY1K3SC7GWEmmLcHncjDpPZrb978EcbpkrFiho6Qz8o3mGG1U5lcnbDjuf_4lkt_MwbenirPYS3q5zm0SKb_o4j6leYnlyR7oFDxFWtw3bKTeA-Y45b-1ZZjnMH7OXpAKj4_lp-l3Nskujf2yHgSesCIpBtSC9NOpyrwMmPj3mDO0UYkW-vPqizDqHuwPPWbRqC6AWx3iZy9k2a7Lat61DvZbKiywXkc8D555WjjqvRjPiq53S0cN2g19GEfSakIDDg2PYQVKyL8HE4OePjdSNgPJabgNIHXUPkH7-N_MCu9-fNlnzFsuHiKT5L4RCaXG9YpdLt7fxum6KEjPuXeOxUC231mov8GRo9H7unsPfl9RnXCtrVXqJNEz57bw8Q66nN30L9oYQLx_AtnSVDTWiPlZc5oqcqX4",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		}
+	]
+}
