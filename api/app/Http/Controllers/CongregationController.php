@@ -38,18 +38,22 @@ class CongregationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:191',
+            'description' => 'string',
             'address' => 'string|max:200',
             'pastor' => 'string|max:100',
             'lat' => 'numeric',
-            'lon' => 'numeric'
+            'lon' => 'numeric',
+            'image' => 'string'
         ]);
 
         $congregation = new Congregation();
         $congregation->name = $request->name;
+        $congregation->description = $request->description;
         $congregation->address = $request->address;
         $congregation->pastor = $request->pastor;
         $congregation->lat = $request->lat;
         $congregation->lon = $request->lon;
+        $congregation->image = $request->image;
 
         if(auth()->user()->congregations()->save($congregation))
             return response()->json([
@@ -82,9 +86,16 @@ class CongregationController extends Controller
             ], 400);
         }
 
-        $updated = $congregation->fill($request->all())->save();
+        // $updated = $congregation->fill($request->all())->save();
+        
 
-        if ($updated) {
+        $congregation->name = $request->name;
+        $congregation->address = $request->address;
+        $congregation->pastor = $request->pastor;
+        $congregation->lat = $request->lat;
+        $congregation->lon = $request->lon;
+        
+        if ($congregation->save()) {
             return response()->json([
                 'success' => true
             ]);
@@ -118,5 +129,6 @@ class CongregationController extends Controller
             ], 500);
         }
     }
+    
         
 }

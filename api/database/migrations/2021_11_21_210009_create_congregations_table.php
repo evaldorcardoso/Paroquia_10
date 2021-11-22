@@ -19,13 +19,13 @@ class CreateCongregationsTable extends Migration
             $table->foreignIdFor(User::class);
             $table->index('user_id');
             $table->string('name', 100);
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('address', 200);
             $table->string('pastor', 100);
             $table->float('lat', 10, 6);
             $table->float('lon', 10, 6);
             $table->integer('active')->default(0);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
