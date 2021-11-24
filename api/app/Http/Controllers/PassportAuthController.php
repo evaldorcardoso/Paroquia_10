@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserToken;
 use Illuminate\Http\Request;
 
 class PassportAuthController extends Controller
@@ -23,6 +24,9 @@ class PassportAuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        $tokenController = new UserTokenController();
+        $token = $tokenController->getToken($user->id);
 
         $token = $user->createToken('LaravelAuthApp')->accessToken;
 

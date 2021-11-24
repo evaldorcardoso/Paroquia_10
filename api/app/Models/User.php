@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Congregation::class);
     }
+
+    public function user_tokens()
+    {
+        return $this->hasMany(UserToken::class);
+    }
 }
