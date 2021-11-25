@@ -51,7 +51,10 @@ class EventController extends Controller
         }
         $data = $request->all();        
 
-        $data['event_at'] = date('Y-m-d H:i:s', strtotime($request->event_at));
+        // $data['event_at'] = date('Y-m-d H:i:s', strtotime($request->event_at));
+        $data['event_at']=$data['event_at_d'].' '.$data['event_at_h'];
+        unset($data['event_at_d']);
+        unset($data['event_at_h']);
         $data['congregation_id'] = $data_congregation->id;
 
         Event::create($data);
@@ -86,6 +89,17 @@ class EventController extends Controller
         return response()->json([
             'success' => true,
             'data' => $data
+        ]);
+    }
+
+    public function search(Request $request){
+        // $filters = $request->except('_token');
+        $events = Event::where('title','LIKE',"%{$request->search}%")
+                            ->orWhere('description','LIKE',"%{$request->search}%")
+                            ->get();
+        return response()->json([
+            'success' => true,
+            'data' => $events
         ]);
     }
 
