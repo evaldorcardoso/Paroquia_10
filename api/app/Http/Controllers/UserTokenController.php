@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserTokenController extends Controller
 {
@@ -19,8 +20,15 @@ class UserTokenController extends Controller
         $lastToken = UserToken::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
         if($lastToken){                   
             //retorno token existente
-            if(($lastToken->created_at->diffInHours() < 2) && 
-               ($lastToken->used == 0)){
+            if($lastToken->used == 0){
+                $details = [
+                    'title' => 'Agora só falta ativar a sua conta no App Paróquia 10!',
+                    'name' => $user->name,
+                    'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
+                    'url' => config('app.url').'/api/user/'.$userId.'/activate/'.$lastToken->token
+                ];
+                Mail::to($user->email)->send(new \App\Mail\RegisterMail($details));        
+
                 return response()->json([
                     'message' => 'Token sent',
                     'token' => $lastToken->token
@@ -31,7 +39,8 @@ class UserTokenController extends Controller
                 $token = UserToken::create([
                     'user_id' => $userId,
                     'token' => md5(uniqid(rand(), true))
-                ]);        
+                ]);
+                
             }
             else{    
                 return response()->json([
@@ -45,6 +54,15 @@ class UserTokenController extends Controller
                 'token' => md5(uniqid(rand(), true))
             ]);
         }
+
+        $details = [
+            'title' => 'Agora só falta ativar a sua conta no App Paróquia 10!',
+            'name' => $user->name,
+            'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
+            'url' => env('APP_URL').'/api/user/'.$userId.'/activate/'.$token->token
+        ];
+        Mail::to($user->email)->send(new \App\Mail\RegisterMail($details)); 
+
         return response()->json([
             'message' => 'Token created',
             'token' => $token->token

@@ -19,16 +19,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
 Route::post('token/verify', [UserTokenController::class, 'verify']);
 Route::post('token/create', [UserTokenController::class, 'create']);
 Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
 Route::middleware('auth:api')->group(function () {
-            Route::resource('congregations', CongregationController::class);                            
+    Route::resource('congregations', CongregationController::class);
 });
 Route::middleware('auth:api')
-        ->prefix('congregations/{congregation}')    
-        ->group(function () {
-            Route::resource('events', EventController::class);
-});
+    ->prefix('congregations/{congregation}')
+    ->group(function () {
+        Route::resource('events', EventController::class);
+    });
