@@ -1,4 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+import http from '@/http'
 
-createApp(App).mount('#app')
+const paroquiaApp = createApp(App)
+paroquiaApp.config.globalProperties.$http = http
+paroquiaApp.mount('#app')

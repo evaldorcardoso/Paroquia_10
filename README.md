@@ -1,23 +1,25 @@
-# Reformulando Paroquia10 com Laravel (Em Andamento)
+# Reformulando Paroquia10 com Laravel(8.x) e Vuejs(3.x) - (Em Andamento)
 
 Um verdadeiro Informativo Digital!
 
 ## 🚀 Começando
 
-Paróquia10 é um aplicativo PWA feito para congregações/igrejas que desejam ter um informativo digital com seus eventos de forma simples e rápida.
+Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desejam ter um informativo digital com seus eventos de forma simples e rápida.
 
 ## 🛠️ Em construção utilizando:
 
-* [PHP](https://www.php.net/) - Usado no WebService para comunicação com o Banco de Dados
-* [Laravel](https://laravel.com/) - Framework PHP
+* [Laravel](https://laravel.com/) - Framework PHP - Api Back-end
 * [MySQL](https://www.mysql.com/) - Banco de Dados
 * [Docker] (https://www.docker.com/) - Ambiente de execução com containers
 * [Composer] (https://getcomposer.org/) - Gestor de Dependências PHP
+* [Yarn] (https://yarnpkg.com/) - Gerenciador de Pacotes e Dependências Javascript
+* [Vue] (https://v3.vuejs.org/) - Framework progressivo para a construção de interfaces de usuário - Aplicativo Front-end
 
 ## 🛠️ 1- Como fazer funcionar a API em Laravel:
 ###  É necessário ter o composer(https://getcomposer.org/) instalado na máquina e o Docker
- * Navegar até a pasta do projeto, abrir o terminal e digitar:
+ * Navegar até a pasta do projeto (api)
  * Copiar o arquivo **.env.example** para o **.env** no mesmo caminho   
+ * Abrir o terminal e digitar:
  * Instalar as dependências: **composer require laravel/sail --dev**
  * Criar o alias para o sail: **alias sail='bash vendor/bin/sail'**
  * Subir os containers: **sail up -d**
@@ -27,7 +29,11 @@ Paróquia10 é um aplicativo PWA feito para congregações/igrejas que desejam t
 
 
 ## 🛠️ 2- Como fazer funcionar o Front-End:
-* Em desenvolvimento ainda...
+* Navegar até a pasta do projeto (app)
+* Abrir o terminal e digitar:
+* Instalar as dependências: **yarn**
+* Rodar o projeto com **yarn serve**
+* Será exibido no terminal o endereço para acessar o aplicativo no navegador
 
 ## ✒️ Autores
 
