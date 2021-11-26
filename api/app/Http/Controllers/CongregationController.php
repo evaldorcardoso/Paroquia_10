@@ -91,6 +91,8 @@ class CongregationController extends Controller
         $congregation->pastor = $request->pastor;
         $congregation->lat = $request->lat;
         $congregation->lon = $request->lon;
+        $congregation->image = $request->image;
+        $congregation->active = $request->active;
         
         if ($congregation->save()) {
             return response()->json([
@@ -127,5 +129,14 @@ class CongregationController extends Controller
         }
     }
     
-        
+    public function getAll()
+    {
+        //get all active congregations
+        $congregations = Congregation::where('active', 1)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $congregations
+        ]);
+    }        
 }

@@ -25,8 +25,9 @@ Route::post('login', [PassportAuthController::class, 'login']);
 Route::post('token/verify', [UserTokenController::class, 'verify']);
 Route::post('token/create', [UserTokenController::class, 'create']);
 Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
+Route::get('congregations', [CongregationController::class, 'getAll']);
 Route::middleware('auth:api')->group(function () {
-    Route::resource('congregations', CongregationController::class);
+    Route::resource('user/congregations', CongregationController::class);
 });
 Route::middleware('auth:api')
     ->prefix('congregations/{congregation}')
