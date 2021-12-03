@@ -66,6 +66,11 @@ export default {
   font-weight: 300;
   line-height: 1.5em;
 }
+h4{
+  font-size: 1.125rem;
+  line-height: 1.4em;
+    font-weight: 300;
+}
 
 .card {
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
