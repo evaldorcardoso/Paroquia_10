@@ -39,14 +39,16 @@ class PassportAuthController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ];
+
+        
         
         if (auth()->attempt($data)) {
             if(auth()->user()->active>0){
                 $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
                 return response()->json(['token' => $token], 200);
             }
-            return response()->json(['error' => 'Inactive'], 401);            
+            return response()->json(['message' => 'Usuário inativo'], 401);            
         } 
-        return response()->json(['error' => 'Unauthorized'], 401);        
+        return response()->json(['message' => 'Login e/ou senha inválidos'], 401);        
     }
 }

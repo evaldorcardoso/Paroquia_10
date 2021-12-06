@@ -17,19 +17,27 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul id="nav" class="navbar-nav justify-content-end flex-grow-1 pe-3 text-center">                
-                    <router-link class="nav-item" active-class="active" to="/">Início</router-link>
-                    <router-link class="nav-item" active-class="active" to="/login">Entrar</router-link>
-                    <router-link class="nav-item" active-class="active" to="/about">Sobre</router-link>
-                </ul>            
+                <MenuLogged v-if="userIsLogged"/>
+                <MenuLogoff v-else/>        
             </div>
         </div>
         </div>
     </nav>
 </template>
 <script>
+import MenuLogged from './MenuLogged.vue'
+import MenuLogoff from './MenuLogoff.vue'
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'NavigationBar',
+    components: {
+        MenuLogged,
+        MenuLogoff
+    },
+    computed: {
+        ...mapGetters(['userIsLogged'])
+    },
     watch: {
         '$route'(){
             if(document.querySelector('#offcanvasNavbar').classList.contains('show')){                
@@ -39,20 +47,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-.nav-item.active{
-    color:  #ec407a;
-    font-style: bold;
-    border-bottom: 1px solid; 
-    border-color:  #ec407a;
-}
-.nav-item{
-    height: 60px;
-    border-bottom: 1px solid; 
-    border-color: gray;
-    padding: 25px;
-    text-decoration: none;
-    color: gray;
-}
-
-</style>

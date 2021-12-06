@@ -2,10 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
+import store from './store'
 import http from '@/http'
 import router from '@/router'
 
 const paroquiaApp = createApp(App)
 paroquiaApp.config.globalProperties.$http = http
-paroquiaApp.use(router)
+paroquiaApp.config.globalProperties.$store = store
+paroquiaApp.use(router, store)
 paroquiaApp.mount('#app')
