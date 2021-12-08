@@ -39,7 +39,7 @@
           </li>-->
         </ul>
       </div>
-    </div>
+  </div>
   <div class="main-panel">
     <NavigationBar />
     <router-view/>

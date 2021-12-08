@@ -4,7 +4,8 @@
       <div class="card">
         <div class="card-header card-header-rose">
           <h4 class="card-title">Seu informativo digital</h4>
-          <p class="card-category">Para começar, encontre a sua congregação..</p>
+          <p class="card-category" v-if="userIsLogged">Olá {{ userLoggedName }}</p>
+          <p class="card-category" v-else>Para começar, encontre a sua congregação..</p>
         </div>
         <div class="card-body table-responsive">
           <form class="d-flex">
@@ -29,6 +30,7 @@
 
 <script>
 import http from '@/http'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
@@ -50,6 +52,9 @@ export default {
         });
     }
   },
+  computed: {
+    ...mapGetters(['userIsLogged', 'userLoggedName'])
+  },
   mounted () {
     this.getCongregations();
   }
@@ -65,17 +70,20 @@ export default {
   color: #2c3e50;
   font-weight: 300;
   line-height: 1.5em;
+  background-color: #eee;
+  color: #3C4858;
+  font-weight: 300;
 }
 h4{
   font-size: 1.125rem;
   line-height: 1.4em;
-    font-weight: 300;
+  font-weight: 300;
 }
 
 .card {
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
   border-radius: 6px;
-  margin-top: 90px;  
+  margin-top: 20px;  
   color: #333333;
   background: #fff;
   width: 100%;

@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
 import About from '@/components/About'
+import CongregationProfile from '@/components/admin/CongregationProfile'
+import UserProfile from '@/components/admin/UserProfile'
 import store from '@/store'
 
 //Vue.use(VueRouter)
@@ -9,7 +11,9 @@ import store from '@/store'
 const routes = [
     { path: '/', component: Home, name: 'Home', meta: { public: true }},
     { path: '/login', component: Login, name: 'Login', meta: { public: true } },
-    { path: '/about', component: About, name: 'About', meta: { public: true } }
+    { path: '/about', component: About, name: 'About', meta: { public: true } },
+    { path: '/admin/congregation', component: CongregationProfile, name: 'CongregationProfile'},
+    { path: '/admin/user', component: UserProfile, name: 'UserProfile'}
 ]
 
 const router = createRouter({

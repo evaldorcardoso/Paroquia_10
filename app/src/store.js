@@ -24,7 +24,7 @@ const actions = {
             .then(response => {
                 commit('DEFINE_USER_LOGGED', {
                     token: response.data.token,
-                    user: user
+                    user: response.data
                 })
                 resolve(response.data)
             })
@@ -37,7 +37,8 @@ const actions = {
 }
 
 const getters = {
-    userIsLogged: state => Boolean(state.token)
+    userIsLogged: state => Boolean(state.token),
+    userLoggedName: state => state.user.name
 }
 
 export default new createStore({

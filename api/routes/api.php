@@ -28,6 +28,8 @@ Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activat
 Route::get('congregations', [CongregationController::class, 'getAll']);
 Route::middleware('auth:api')->group(function () {
     Route::resource('user/congregations', CongregationController::class);
+    Route::get('user', [PassportAuthController::class, 'show']);
+    Route::put('user/{user}', [UserController::class, 'update']);
 });
 Route::middleware('auth:api')
     ->prefix('congregations/{congregation}')
