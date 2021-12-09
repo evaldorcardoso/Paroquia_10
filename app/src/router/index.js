@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/components/Home'
+import Congregation from '@/components/Congregation'
 import Login from '@/components/Login'
 import About from '@/components/About'
 import CongregationProfile from '@/components/admin/CongregationProfile'
@@ -10,6 +11,7 @@ import store from '@/store'
 
 const routes = [
     { path: '/', component: Home, name: 'Home', meta: { public: true }},
+    { path: '/congregation/:id', component: Congregation, name: 'Congregation', meta: { public: true }},
     { path: '/login', component: Login, name: 'Login', meta: { public: true } },
     { path: '/about', component: About, name: 'About', meta: { public: true } },
     { path: '/admin/congregation', component: CongregationProfile, name: 'CongregationProfile'},

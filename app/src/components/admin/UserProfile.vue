@@ -29,6 +29,7 @@
                     <input
                         type="text"
                         class="form-control"
+                        disabled
                         v-model="user.email"
                     />
                     </div>
@@ -97,6 +98,11 @@ export default {
         });
     },
     salvarUser() {
+      if(!this.user.active){
+        if(!confirm('Ao inativar seu usuário, não será possível entrar novamente, continuar?')){
+          return;
+        }
+      }
       this.$http
         .put("/api/user/"+this.user.id, this.user)
         .then(() => {

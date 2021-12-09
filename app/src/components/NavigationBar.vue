@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar navbar-light bg-light fixed-top">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <router-link :to="{ name: 'Home' }" class="navbar-brand">            
             <img src="https://www.paroquia10.com/images/icone_transp.png" alt="" height="24">
             Paróquia 10
-        </a>
+        </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

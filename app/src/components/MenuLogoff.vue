@@ -1,8 +1,8 @@
 <template>
     <ul id="nav" class="navbar-nav justify-content-end flex-grow-1 pe-3 text-center">                
-        <router-link class="nav-item" active-class="active" to="/">Início</router-link>
-        <router-link class="nav-item" active-class="active" to="/login">Entrar</router-link>
-        <router-link class="nav-item" active-class="active" to="/about">Sobre</router-link>
+        <router-link class="nav-item" active-class="active" :to="{name:'Home'}">Início</router-link>
+        <router-link class="nav-item" active-class="active" :to="{name:'Login'}">Entrar</router-link>
+        <router-link class="nav-item" active-class="active" :to="{name:'About'}">Sobre</router-link>
     </ul>            
 </template>
 <style scoped>
