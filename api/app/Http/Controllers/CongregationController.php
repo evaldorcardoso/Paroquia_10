@@ -128,6 +128,24 @@ class CongregationController extends Controller
             ], 500);
         }
     }
+
+    //Public routes
+    public function publicShow($id)
+    {
+        $congregation = Congregation::find($id);
+
+        if (!$congregation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Congregation with id ' . $id . ' not found'
+            ], 400);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $congregation->toArray()
+        ], 200);
+    }
     
     public function getAll()
     {

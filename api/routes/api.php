@@ -19,13 +19,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
-Route::post('token/verify', [UserTokenController::class, 'verify']);
-Route::post('token/create', [UserTokenController::class, 'create']);
-Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
-Route::get('congregations', [CongregationController::class, 'getAll']);
+Route::prefix('public')->group(function () {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
+    Route::post('token/verify', [UserTokenController::class, 'verify']);
+    Route::post('token/create', [UserTokenController::class, 'create']);
+    Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
+    Route::get('congregations/{congregation}', [CongregationController::class, 'publicShow']);
+    Route::get('congregations', [CongregationController::class, 'getAll']);
+    Route::prefix('congregation/{congregation}')->group(function () {
+        Route::resource('events', EventController::class);
+    });
+});
 Route::middleware('auth:api')->group(function () {
     Route::resource('user/congregations', CongregationController::class);
     Route::get('user', [PassportAuthController::class, 'show']);
