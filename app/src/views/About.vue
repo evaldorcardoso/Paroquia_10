@@ -17,7 +17,5 @@ export default {
     p{
         color: gray;
     }
-    .mt-300{
-        margin-top: 300px;
-    }
+
 </style>

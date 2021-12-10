@@ -7,21 +7,22 @@ const state = {
 }
 
 const mutations = {
-    DEFINE_USER_LOGGED (state, { token, user }) {
+    DEFINE_USER_LOGGED (state, {token, user}) {
         state.token = token
         state.user = user
     },
     USER_LOGOUT (state) {
         state.token = null
-        state.user = {}
+        state.user = null
     }
 }
 
 const actions = {
-    doLogin ({ commit }, user) {
+    async doLogin ({ commit }, { email, password }) {
         return new Promise((resolve, reject) => {
-            http.post('/api/login', user)
+            http.post('/api/public/login', { email, password })
             .then(response => {
+                console.log(response.data)
                 commit('DEFINE_USER_LOGGED', {
                     token: response.data.token,
                     user: response.data
@@ -33,6 +34,10 @@ const actions = {
                 reject(error)
             });
         })
+    },
+    async doLogout({ commit }) {
+        console.log('logout action');
+        commit('USER_LOGOUT')
     }
 }
 

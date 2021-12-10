@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/components/Home'
-import Congregation from '@/components/Congregation'
-import Login from '@/components/Login'
-import About from '@/components/About'
-import CongregationProfile from '@/components/admin/CongregationProfile'
-import UserProfile from '@/components/admin/UserProfile'
+import Home from '@/views/Home'
+import Congregation from '@/views/Congregation'
+import Login from '@/views/Login'
+import About from '@/views/About'
+import CongregationProfile from '@/views/admin/CongregationProfile'
+import UserProfile from '@/views/admin/UserProfile'
 import store from '@/store'
 
 //Vue.use(VueRouter)
