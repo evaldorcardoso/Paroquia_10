@@ -38,7 +38,7 @@
           <!-- don't give a name === doesn't send on POST/GET  -->
         </div>
       </div>
-      <div class="col-12 mt-5">
+      <div class="col-12 mt-1">
         <div class="card">
           <div class="card-header card-header-rose">
             <h4 class="card-title">Alterar Dados</h4>
@@ -133,7 +133,8 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState } from "vuex"
+import router from '@/router'
 
 export default {
   data() {
@@ -165,6 +166,12 @@ export default {
         .put("/api/user/congregations/"+this.congregation.id, this.congregation)
         .then(() => {
           this.alert('Dados atualizados com sucesso!', 'success')
+          setTimeout(() => {
+            router.push({ 
+              name: "Congregation",
+              params: { id: this.congregation.id } 
+            });
+          }, 2000);
         })
         .catch((error) => {
           this.alert('Não foi possível atualizar os dados!', 'danger')
@@ -188,31 +195,7 @@ export default {
 };
 </script>
 <style scoped>
-.card {
-  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
-  border-radius: 6px;
-  margin-top: 20px;
-  color: #333333;
-  background: #fff;
-  width: 100%;
-  font-size: 0.875rem;
-  border: 0;
-}
-.card-avatar {
-  text-align: center;
-  max-width: 130px;
-  max-height: 130px;
-  margin: -50px auto 0;
-  border-radius: 50%;
-  overflow: hidden;
-  padding: 0;
-  box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
-    0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-}
-.card-avatar img {
-  width: 100%;
-  height: auto;
-}
+
 .btn-round {
   border-radius: 30px;
 }
@@ -222,19 +205,5 @@ export default {
   border-color: #e91e63;
   box-shadow: 0 2px 2px 0 rgb(233 30 99 / 14%),
     0 3px 1px -2px rgb(233 30 99 / 20%), 0 1px 5px 0 rgb(233 30 99 / 12%);
-}
-.card-header {
-  border-bottom: none;
-  background: transparent;
-}
-.card-title {
-  color: #3c4858;
-  text-decoration: none;
-}
-.card-header-rose {
-  background: linear-gradient(60deg, #ec407a, #d81b60);
-}
-.card [class*="card-header-"] .card-title {
-  color: #fff;
 }
 </style>

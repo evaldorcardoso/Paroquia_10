@@ -36,8 +36,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|string|email|max:100|unique:users,email,'.$this->user()->id,
+            'password' => 'string|min:6|confirmed',
             'active' => 'required|boolean'
         ];
     }
@@ -51,7 +51,6 @@ class UserRequest extends FormRequest
             'email.email' => 'O campo email deve ser um email válido',
             'email.max' => 'O campo email deve ter no máximo 100 caracteres',
             'email.unique' => 'O email informado já está cadastrado',
-            'password.required' => 'O campo senha é obrigatório',
             'password.min' => 'O campo senha deve ter no mínimo 6 caracteres',
             'password.confirmed' => 'O campo senha e a confirmação da senha devem ser iguais',
             'active.required' => 'O campo ativo é obrigatório',
