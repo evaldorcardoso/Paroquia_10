@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CongregationRequest;
 use App\Models\Congregation;
-use Illuminate\Http\Request;
 
 class CongregationController extends Controller
 {
@@ -34,29 +34,14 @@ class CongregationController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(CongregationRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'address' => 'string|max:200',
-            'pastor' => 'string|max:100',
-            'lat' => 'numeric',
-            'lon' => 'numeric'
-        ]);
-
-        $congregation = new Congregation();
-        $congregation->name = $request->name;
-        $congregation->description = $request->description;
-        $congregation->address = $request->address;
-        $congregation->pastor = $request->pastor;
-        $congregation->lat = $request->lat;
-        $congregation->lon = $request->lon;
-        $congregation->image = $request->image;
+        $congregation = $request->all();
 
         if(auth()->user()->congregations()->save($congregation))
             return response()->json([
                 'success' => true,
-                'data' => $congregation->toArray()
+                'data' => $congregation
             ]);
         else
             return response()->json([
@@ -65,16 +50,8 @@ class CongregationController extends Controller
             ], 500);
     }
 
-    public function update(Request $request, $id)
+    public function update(CongregationRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'string|max:191',
-            'address' => 'string|max:200',
-            'pastor' => 'string|max:100',
-            'lat' => 'numeric',
-            'lon' => 'numeric'
-        ]);
-
         $congregation = auth()->user()->congregations()->find($id);
 
         if (!$congregation) {

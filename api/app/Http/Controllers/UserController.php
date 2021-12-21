@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'string|max:100',
-            'active' => 'boolean'            
-        ]);
-
         $user = User::find(auth()->user()->id);
 
         if (!$user) {
