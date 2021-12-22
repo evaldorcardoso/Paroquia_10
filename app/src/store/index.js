@@ -3,7 +3,7 @@ import http from '@/http'
 
 const state = {
     token: null,
-    user: {}
+    user: null
 }
 
 const mutations = {
