@@ -43,9 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function congregations()
+    public function congregation()
     {
-        return $this->hasMany(Congregation::class);
+        return $this->hasOne(Congregation::class);
     }
 
     public function user_tokens()

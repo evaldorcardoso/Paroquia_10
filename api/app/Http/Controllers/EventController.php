@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -11,85 +12,52 @@ class EventController extends Controller
     {
         $events = Event::where('congregation_id', $congregation)->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $events
-        ]);
+        return response()->json(['success' => true,'data' => $events]);
     }
 
     public function show($congregation, $id)
     {
         $event = Event::where('congregation_id', $congregation)->find($id);
 
-        if($event) 
-            return response()->json([
-                'success' => true,
-                'data' => $event
-            ]);
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Event not found'
-        ]);
+        if(!$event)
+            return response()->json(['success' => false,'message' => 'Event not found']);
+            
+        return response()->json(['success' => true,'data' => $event]);
     }
 
-    public function store(Request $request, $congregation)
+    public function store(EventRequest $request, $congregation)
     {
-        $this->validate($request, [
-            'title' => 'required|string|max:50',
-            'event_at' => 'required',
-            'address' => 'required|string|max:200'        
-        ]);
+        $id_congregation = auth()->user()->congregation->id;
 
-        $data_congregation = auth()->user()->congregations()->find($request->congregation);
+        if ($id_congregation != $congregation)
+            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
+        
+        $event = auth()->user()->congregation->events()->create($request->validated());
 
-        if (!$data_congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation not found'
-            ], 400);
-        }
-        $data = $request->all();        
+        if(!$event)
+            return response()->json(['success' => false,'message' => 'Event not created'], 500);
 
-        // $data['event_at'] = date('Y-m-d H:i:s', strtotime($request->event_at));
-        $data['event_at']=$data['event_at_d'].' '.$data['event_at_h'];
-        unset($data['event_at_d']);
-        unset($data['event_at_h']);
-        $data['congregation_id'] = $data_congregation->id;
-
-        Event::create($data);
-        return response()->json([
-            'success' => true,
-            'data' => $data
-        ]);
+        return response()->json(['success' => true,'data' => $event]);
     }
 
-    public function update(Request $request, $congregation, $id)
+    public function update(EventRequest $request, $congregation, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|string|max:50',
-            'event_at' => 'required',
-            'address' => 'required|string|max:200'        
-        ]);
+        $id_congregation = auth()->user()->congregation->id;
 
-        $data_congregation = auth()->user()->congregations()->find($request->congregation);
+        if ($id_congregation != $congregation)
+            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
 
-        if (!$data_congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation not found'
-            ], 400);
-        }
+        $event = auth()->user()->congregation->events()->find($id);
 
-        $data = $request->only('title', 'event_at', 'address', 'description', 'readings');
+        if(!$event)
+            return response()->json(['success' => false,'message' => 'Event not found'], 400);
 
-        Event::where('congregation_id', $data_congregation->id)
-            ->where('id', $id)
-            ->update($data);
-        return response()->json([
-            'success' => true,
-            'data' => $data
-        ]);
+        $event->update($request->validated());
+
+        if(!$event)
+            return response()->json(['success' => false,'message' => 'Event not updated'], 500);
+        
+        return response()->json(['success' => true,'data' => $event]);
     }
 
     public function search(Request $request){
@@ -97,43 +65,25 @@ class EventController extends Controller
         $events = Event::where('title','LIKE',"%{$request->search}%")
                             ->orWhere('description','LIKE',"%{$request->search}%")
                             ->get();
-        return response()->json([
-            'success' => true,
-            'data' => $events
-        ]);
+
+        return response()->json(['success' => true,'data' => $events]);
     }
 
     public function destroy($congregation, $id)
     {
-        $data_congregation = auth()->user()->congregations()->find($congregation);
+        $id_congregation = auth()->user()->congregation->id;
 
-        if (!$data_congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation not found'
-            ], 400);
-        }
+        if ($id_congregation != $congregation)
+            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
 
-        $event = Event::where('congregation_id', $data_congregation->id)
-            ->where('id', $id)
-            ->first();
+        $event = auth()->user()->congregation->events()->find($id);
 
-        if (!$event) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Event not found'
-            ], 400);
-        }
+        if (!$event)
+            return response()->json(['success' => false,'message' => 'Event not found'], 400);
 
-        if($event->delete()) {
-            return response()->json([
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Event could not be deleted'
-            ]);
-        }
+        if(!$event->delete())
+            return response()->json(['success' => false,'message' => 'Event could not be deleted']);
+
+        return response()->json(['success' => true]);        
     }
 }

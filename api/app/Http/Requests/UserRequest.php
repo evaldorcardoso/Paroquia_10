@@ -34,12 +34,28 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users,email,'.$this->user()->id,
+        $rules = [
+            'name' => 'required|string|max:100',            
             'password' => 'string|min:6|confirmed',
             'active' => 'required|boolean'
         ];
+
+        switch($this->method())
+        {
+            case 'POST':
+            {
+                return array_merge($rules, [
+                    'email' => 'required|string|email|max:100|unique:users,email',
+                ]);
+            }
+            case 'PUT':
+            {
+                return array_merge($rules, [
+                    'email' => 'required|string|email|max:100|unique:users,email,'.$this->id,
+                ]);
+            }
+            default:break;
+        }
     }
 
     public function messages()

@@ -11,99 +11,54 @@ class CongregationController extends Controller
     {
         $congregations = auth()->user()->congregations;
 
-        return response()->json([
-            'success' => true,
-            'data' => $congregations
-        ]);
+        return response()->json(['success' => true,'data' => $congregations]);
     }
 
     public function show($id)
     {
-        $congregation = auth()->user()->congregations()->find($id);
+        $congregation = auth()->user()->congregation;
 
-        if (!$congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
-        }
+        if (!$congregation)
+            return response()->json(['success' => false,'message' => 'Congregation with id ' . $id . ' not found'], 400);
 
-        return response()->json([
-            'success' => true,
-            'data' => $congregation->toArray()
-        ], 200);
+        return response()->json(['success' => true,'data' => $congregation->toArray()], 200);
     }
 
     public function store(CongregationRequest $request)
     {
-        $congregation = $request->all();
-
-        if(auth()->user()->congregations()->save($congregation))
-            return response()->json([
-                'success' => true,
-                'data' => $congregation
-            ]);
-        else
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation could not be added'
-            ], 500);
+        $congregation = auth()->user()->congregation->save($request->validated());
+        if(!$congregation)
+            return response()->json(['success' => false,'message' => 'Congregation could not be added'], 500);
+                    
+        return response()->json(['success' => true,'data' => $congregation]);
     }
 
     public function update(CongregationRequest $request, $id)
     {
-        $congregation = auth()->user()->congregations()->find($id);
+        $id_congregation = auth()->user()->congregation->id;
 
-        if (!$congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
-        }
+        if ($id_congregation != $id)
+            return response()->json(['success' => false,'message' => 'Congregation with id ' . $id . ' not found'], 400);    
 
-        // $updated = $congregation->fill($request->all())->save();
+        $congregation = auth()->user()->congregation->update($request->validated());        
         
-        $congregation->name = $request->name;
-        $congregation->address = $request->address;
-        $congregation->pastor = $request->pastor;
-        $congregation->lat = $request->lat;
-        $congregation->lon = $request->lon;
-        $congregation->image = $request->image;
-        $congregation->active = $request->active;
-        
-        if ($congregation->save()) {
-            return response()->json([
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation could not be updated'
-            ], 500);
-        }
+        if (!$congregation)
+            return response()->json(['success' => false,'message' => 'Congregation could not be updated'], 500);
+                    
+        return response()->json(['success' => true]);        
     }
 
     public function destroy($id)
     {
-        $congregation = auth()->user()->congregations()->find($id);
+        $id_congregation = auth()->user()->congregation->id;
 
-        if (!$congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
-        }
+        if ($id_congregation != $id)
+            return response()->json(['success' => false,'message' => 'Congregation with id ' . $id . ' not found'], 400);
 
-        if ($congregation->delete()) {
-            return response()->json([
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation could not be deleted'
-            ], 500);
-        }
+        if (!auth()->user()->congregation->delete())
+            return response()->json(['success' => false,'message' => 'Congregation could not be deleted'], 500);
+        
+        return response()->json(['success' => true]);        
     }
 
     //Public routes
@@ -111,17 +66,10 @@ class CongregationController extends Controller
     {
         $congregation = Congregation::find($id);
 
-        if (!$congregation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
-        }
+        if (!$congregation)
+            return response()->json(['success' => false,'message' => 'Congregation with id ' . $id . ' not found'], 400);
 
-        return response()->json([
-            'success' => true,
-            'data' => $congregation->toArray()
-        ], 200);
+        return response()->json(['success' => true,'data' => $congregation->toArray()], 200);
     }
     
     public function getAll()
@@ -129,9 +77,6 @@ class CongregationController extends Controller
         //get all active congregations
         $congregations = Congregation::where('active', 1)->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $congregations
-        ]);
+        return response()->json(['success' => true,'data' => $congregations]);
     }        
 }

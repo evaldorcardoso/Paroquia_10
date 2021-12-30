@@ -54,4 +54,11 @@ class EventRequest extends FormRequest
             'address.max' => 'O campo endereço deve ter no máximo 200 caracteres'
         ];
     }
+
+    public function prepareForValidation(){
+        $this->merge([
+            'congregation_id' => auth()->user()->congregation->id,
+            'event_at' => $this->event_at_d.' '.$this->event_at_h
+        ]);        
+    }
 }

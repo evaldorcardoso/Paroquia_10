@@ -38,8 +38,8 @@ class CongregationRequest extends FormRequest
             'name' => 'required|string|max:100',
             'address' => 'required|string|max:200',
             'pastor' => 'required|string|max:100',
-            'lat' => 'required|numeric',
-            'lon' => 'required|numeric',
+            'lat' => 'numeric',
+            'lon' => 'numeric',
             'active' => 'required|boolean'
         ];
     }

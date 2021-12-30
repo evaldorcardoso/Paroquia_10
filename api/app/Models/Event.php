@@ -17,4 +17,9 @@ class Event extends Model
         'description',
         'readings'
     ];
+
+    public function congregation()
+    {
+        return $this->belongsTo(Congregation::class);
+    }    
 }
