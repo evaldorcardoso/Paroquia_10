@@ -23,7 +23,8 @@ Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desej
  * Instalar as dependências: **composer require laravel/sail --dev**
  * Criar o alias para o sail: **alias sail='bash vendor/bin/sail'**
  * Subir os containers: **sail up -d**
- * Voltar no terminal e rodar as migrations: **sail artisan migrate**
+ * Ainda no terminal e rodar as migrations: **sail artisan migrate**
+ * Ainda no terminal e rodar as seeders para alimentar o banco de dados: **sail artisan db:seed**
  * Ainda no terminal gerar as chaves de autenticação: **sail artisan passport:keys**
  * A API estará rodando no endereço: **http://localhost**
 
