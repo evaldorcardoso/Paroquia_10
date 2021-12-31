@@ -17,7 +17,7 @@ class EventController extends Controller
 
     public function show($congregation, $id)
     {
-        $event = Event::where('congregation_id', $congregation)->find($id);
+        $event = Event::where('congregation_id', $congregation)->with('congregation')->find($id);
 
         if(!$event)
             return response()->json(['success' => false,'message' => 'Event not found']);

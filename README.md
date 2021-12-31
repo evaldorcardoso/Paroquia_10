@@ -26,6 +26,7 @@ Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desej
  * Ainda no terminal e rodar as migrations: **sail artisan migrate**
  * Ainda no terminal e rodar as seeders para alimentar o banco de dados: **sail artisan db:seed**
  * Ainda no terminal gerar as chaves de autenticação: **sail artisan passport:keys**
+ * Gerar clientid Personal: **sail artisan passport:client --personal**
  * A API estará rodando no endereço: **http://localhost**
 
 

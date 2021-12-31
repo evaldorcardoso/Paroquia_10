@@ -56,9 +56,12 @@ class EventRequest extends FormRequest
     }
 
     public function prepareForValidation(){
-        $this->merge([
-            'congregation_id' => auth()->user()->congregation->id,
-            'event_at' => $this->event_at_d.' '.$this->event_at_h
-        ]);        
+        if(auth()->user())
+        {
+            $this->merge([
+                'congregation_id' => auth()->user()->congregation->id,
+                'event_at' => $this->event_at_d.' '.$this->event_at_h
+            ]);        
+        }
     }
 }

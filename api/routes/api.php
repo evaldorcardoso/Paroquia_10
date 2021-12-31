@@ -1,11 +1,6 @@
 <?php
 
-use App\Http\Controllers\CongregationController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\PassportAuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserTokenController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\{CongregationController, EventController, PassportAuthController, UserController, UserTokenController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,10 +21,10 @@ Route::prefix('public')->group(function () {
     Route::post('token/create', [UserTokenController::class, 'create']);
     Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
     Route::get('congregations/{congregation}', [CongregationController::class, 'publicShow']);
-    Route::get('congregations', [CongregationController::class, 'getAll']);
     Route::prefix('congregation/{congregation}')->group(function () {
         Route::resource('events', EventController::class);
     });
+    Route::get('congregations', [CongregationController::class, 'getAll']);
 });
 Route::middleware('auth:api')->group(function () {
     Route::resource('user/congregations', CongregationController::class);
