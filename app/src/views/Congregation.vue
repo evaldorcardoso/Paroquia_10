@@ -4,17 +4,19 @@
       <div class="card-avatar">
         <a href="#">
           <img
-            :src="'https://paroquia10.com/images/' + congregation.image"
+            :src="congregation.image"
             class="img"
           />
         </a>
       </div>
       <div class="card-body text-center mt-0">
+        <h3 class="card-title">{{ congregation.name }}</h3>
         <h6 class="card-category text-gray mt-0">
           {{ congregation.address }}
         </h6>
-        <h4 class="card-title">{{ congregation.name }}</h4>
+        <i class="material-icons">person</i>
         <h5 class="card-category text-gray mt-0">
+          
           {{ congregation.pastor }}
         </h5>
         <p class="card-description" style="margin-bottom: -10px">
@@ -40,7 +42,7 @@
               <thead class="text-rose"></thead>
               <tbody>
                 <tr v-for="event in events" :key="event.id">
-                  <td class="td-name">
+                  <td class="td-name" @click="goToEvent(event.congregation_id, event.id)">
                     <a style="font-size: 130%" href="#">{{ event.title }}</a
                     ><br /><span class="badge badge-danger"
                       ><i class="material-icons">warning</i></span
@@ -104,6 +106,12 @@ export default {
       this.$router.push({
         name: "Congregation",
         params: { id: id },
+      });
+    },
+    goToEvent(congregation_id, id){
+      this.$router.push({
+        name: "Event",
+        params: { congregation_id: congregation_id, id: id },
       });
     },
   },
