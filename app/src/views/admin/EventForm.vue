@@ -9,38 +9,56 @@
             <h6 style="color:gray;text-transform: none;font-weight:100">{{ formatDate(event.event_at) }}</h6>
         </div>
         <div class="card-body" style="text-align: left">
-            <div class="col">
+            <form id="form_evento" style="">              
               <div class="row">
-                <h3 class="card-description">
-                    {{ event.title }}
-                </h3>     
+                <div class="col">
+                  <div class="form-group bmd-form-group is-filled">
+                    <label class="bmd-label-floating">Título do evento</label>
+                    <input type="text" class="form-control" v-model="event.title">
+                  </div>
+                </div>
               </div>
               <div class="row">
-                <p class="card-description">
-                    {{ event.description }}
-                </p>     
-              </div>
-              <div class="row">
-                <i class="material-icons" style="float:left;width:auto">bookmarks</i>
-                <h4 style="float:right;width:auto;margin-left:-15px;">Leituras</h4>
-              </div>
-              <div class="row">
-                <p class="card-description">
-                    {{ event.readings }}
-                </p>
+                <div class="col">
+                  <div class="form-group bmd-form-group is-filled">
+                    <label class="bmd-label-floating">Data do Evento</label>
+                    <input type="datetime-local" v-model="event.event_at" class="form-control">
+                  </div>
+                </div>
               </div>              
-            </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <div class="form-group bmd-form-group">
+                      <label class="bmd-label-static">Descrição do evento</label>
+                      <textarea class="form-control" rows="4" v-model="event.description"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group bmd-form-group">
+                    <label class="bmd-label-floating">Local do evento</label>
+                    <input type="text" v-model="event.address" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="form-group bmd-form-group">
+                      <label class="bmd-label-static">Leituras</label>
+                      <textarea class="form-control" v-model="event.readings" rows="5"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+              <button type="submit" onclick="salvarEvento();" class="btn btn-rose pull-right">SALVAR<div class="ripple-container"></div></button>
+            </form>
         </div>
         <div class="card-footer">
-          <div class="row">
-            <i class="material-icons" style="float:left;width:auto">place</i>
-            <h4 style="float:right;width:auto;margin-left:-15px;">Endereço</h4>
-          </div>
-          <div class="row">
-            <p class="card-description">
-              {{ event.address }}
-            </p>
-          </div>
+          <!-- {{ event }} -->
         </div>
     </div>
   </div>
@@ -61,7 +79,8 @@ export default {
         .get("/api/public/congregation/" + congregation_id + "/events/" + id)
         .then((response) => {
           this.event = response.data.data;
-          console.log(response.data.data);
+          this.event.event_at = moment(this.event.event_at).format("YYYY-MM-DDTHH:mm");
+        //   console.log(response.data.data);
           // console.log(this.congregations);
         })
         .catch((error) => {
@@ -127,5 +146,16 @@ export default {
 a {
   color: #ec407a;
   text-decoration: none;
+}
+.form-control:focus, .bmd-form-group.is-focused .form-control {
+    background-size: 100% 100% 100% 100%;
+    transition-duration: 0.3s;
+    box-shadow: none;
+}
+.btn.btn-rose {
+    color: #fff;
+    background-color: #e91e63;
+    border-color: #e91e63;
+    box-shadow: 0 2px 2px 0 rgb(233 30 99 / 14%), 0 3px 1px -2px rgb(233 30 99 / 20%), 0 1px 5px 0 rgb(233 30 99 / 12%);
 }
 </style>

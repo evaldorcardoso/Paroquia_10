@@ -5,6 +5,7 @@ import Event from '@/views/Event'
 import Login from '@/views/Login'
 import About from '@/views/About'
 import CongregationProfile from '@/views/admin/CongregationProfile'
+import EventForm from '@/views/admin/EventForm'
 import UserProfile from '@/views/admin/UserProfile'
 import store from '@/store'
 
@@ -17,6 +18,7 @@ const routes = [
     { path: '/login', component: Login, name: 'Login', meta: { public: true } },
     { path: '/about', component: About, name: 'About', meta: { public: true } },
     { path: '/admin/congregation', component: CongregationProfile, name: 'CongregationProfile'},
+    { path: '/admin/:congregation_id/event/:id', component: EventForm, name: 'EventForm'},
     { path: '/admin/user', component: UserProfile, name: 'UserProfile'}
 ]
 

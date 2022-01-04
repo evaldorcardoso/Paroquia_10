@@ -54,7 +54,7 @@ export default {
     //   password: '123456',
     // })
     const email = ref('admin@admin.com')
-    const password = ref('123456')
+    const password = ref('password')
     const errorMessage = ref(null)
 
     const store = useStore()
