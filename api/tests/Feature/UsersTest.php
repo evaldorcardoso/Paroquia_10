@@ -50,6 +50,20 @@ class UsersTest extends TestCase
         // return $response->json('token');
     }
 
+    /**
+     * Teste de verificação de token de usuário.
+     * @depends createToken
+     * @test
+     */
+    public function verify($params)
+    {
+        $response = $this->post('/api/public/token/verify', [
+            'user_id' => $params['user_id'],
+            'token' => $params['token']
+        ]);
+        $response->assertStatus(200);
+    }
+
     /** 
      * Teste de ativação de usuário.
      * @depends createToken
@@ -64,18 +78,66 @@ class UsersTest extends TestCase
     /**
      * Teste de autenticação de usuário.
      *
-     * @return void
-     * @depends createToken
+     * @return Array
      * @test
      */
-    public function login($token)
+    public function login()
     {
         $response = $this->post('/api/public/login', [
             'email' => $this->user['email'],
             'password' => $this->user['password']
-        ]);        
-
+        ]);                
         $response->assertStatus(200);        
+        $params = array(
+            'user_id' => $response->json('id'), 
+            'token' => $response->json('token')
+        );
+        return $params;
+    }
+
+    /**
+     * Teste de exibir usuário logado.
+     * @depends login
+     * @test
+     */
+    public function show($params)
+    {
+        //fazer um get passando o Bearer token como header
+        $response = $this->get('/api/user', [
+            'Authorization' => 'Bearer '.$params['token']
+        ]);
+        // dd($response);
+        $response->assertStatus(200);        
+        $response->assertJson([
+            'name' => $this->user['name'],
+            'email' => $this->user['email'],
+            'active' => 1
+        ]);
+    }
+
+    
+
+    /**
+     * Teste de alteração de usuário.
+     * @depends login
+     * @test
+     */
+    public function update($params)
+    {        
+        $this->user['name'] = 'teste alterado';
+        $response = $this->put('/api/user/'.$params['user_id'],[
+            'id' => $params['user_id'],
+            'name' => $this->user['name'],
+            'email' => $this->user['email'],
+            'active' => 1
+        ],[
+            'Authorization' => 'Bearer '.$params['token'],
+            'Accept' => 'application/json'
+        ]);
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+        ]);
     }
 
 }

@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('public')->group(function () {
     Route::post('register', [PassportAuthController::class, 'register']);
-    Route::post('login', [PassportAuthController::class, 'login']);
-    Route::post('token/verify', [UserTokenController::class, 'verify']);
+    Route::post('login', [PassportAuthController::class, 'login'])->name('user.login');
     Route::post('token/create', [UserTokenController::class, 'create']);
+    Route::post('token/verify', [UserTokenController::class, 'verify']);
     Route::get('user/{user}/activate/{token}', [UserTokenController::class, 'activate']);
     Route::get('congregations/{congregation}', [CongregationController::class, 'publicShow']);
     Route::prefix('congregation/{congregation}')->group(function () {
