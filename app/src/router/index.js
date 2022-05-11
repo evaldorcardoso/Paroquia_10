@@ -13,7 +13,7 @@ import store from '@/store'
 
 const routes = [
     { path: '/', component: Home, name: 'Home', meta: { public: true }},
-    { path: '/congregation/:id', component: Congregation, name: 'Congregation', meta: { public: true }},
+    { path: '/congregation/:uuid', component: Congregation, name: 'Congregation', meta: { public: true }},
     { path: '/congregation/:congregation_id/event/:id', component: Event, name: 'Event', meta: { public: true }},
     { path: '/login', component: Login, name: 'Login', meta: { public: true } },
     { path: '/about', component: About, name: 'About', meta: { public: true } },

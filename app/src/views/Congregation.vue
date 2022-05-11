@@ -16,7 +16,7 @@
         </h6>
         <i class="material-icons">person</i>
         <h5 class="card-category text-gray mt-0">
-          
+
           {{ congregation.pastor }}
         </h5>
         <p class="card-description" style="margin-bottom: -10px">
@@ -81,9 +81,9 @@ export default {
     eventPast(event_date){
       return moment().isAfter(event_date, 'day')
     },
-    getCongregation(id) {
+    getCongregation(uuid) {
       http
-        .get("/api/public/congregations/" + id)
+        .get("/api/congregations/public/" + uuid)
         .then((response) => {
           this.congregation = response.data.data;
           console.log(response.data.data);
@@ -104,12 +104,6 @@ export default {
           console.log(error);
         });
     },
-    goToCongregation(id) {
-      this.$router.push({
-        name: "Congregation",
-        params: { id: id },
-      });
-    },
     goToEvent(congregation_id, id){
       this.$router.push({
         name: "Event",
@@ -124,7 +118,7 @@ export default {
     },
   },
   mounted() {
-    this.getCongregation(this.$route.params.id);
+    this.getCongregation(this.$route.params.uuid);
     this.getEvents(this.$route.params.id);
   },
 };

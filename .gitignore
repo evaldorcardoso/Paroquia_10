@@ -4,6 +4,8 @@
 /public/storage
 /storage/*.key
 /vendor
+/app/node_modules
+
 .env
 .gitignore
 .phpunit.result.cache
