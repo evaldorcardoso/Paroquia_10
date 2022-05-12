@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div v-if="errorMessage" class="alert alert-danger alert-dismissible text-center">      
+    <div v-if="errorMessage" class="alert alert-danger alert-dismissible text-center">
       <span>{{ errorMessage }}</span>
       <button type="button" class="close" @click="errorMessage = null">
         <span aria-hidden="true">&times;</span>
@@ -34,6 +34,7 @@
             <button id="but_entrar" class="card-footer text-center">
               <a class="btn btn-rose btn-link btn-lg">Entrar</a>
             </button>
+            <a class="btn btn-rose btn-link btn-lg" @click="signInWithFirebase()">Entrar com Google</a>
             <a onclick="muda_tela('principal');">VOLTAR</a>
           </div>
         </div>
@@ -46,6 +47,8 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { initializeApp } from "firebase/app";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 
 export default {
   setup() {
@@ -53,8 +56,21 @@ export default {
     //   email: 'admin@admin.com',
     //   password: '123456',
     // })
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD3jX8MJVpo-U01g7IafuHwgO7pRB96uBA",
+        authDomain: "paroquia-10.firebaseapp.com",
+        databaseURL: "https://paroquia-10.firebaseio.com",
+        projectId: "paroquia-10",
+        storageBucket: "paroquia-10.appspot.com",
+        messagingSenderId: "761038367071",
+        appId: "1:761038367071:web:bfb2f50a4b501ed565eeea",
+    };
+
+    initializeApp(firebaseConfig);
+
     const email = ref('admin@admin.com')
-    const password = ref('123456')
+    const password = ref('password')
     const errorMessage = ref(null)
 
     const store = useStore()
@@ -73,8 +89,43 @@ export default {
           errorMessage.value = error.response.data.message ? error.response.data.message : 'Erro ao entrar, tente novamente';
         });
     }
-    
-    return { handleSubmit, email, password, errorMessage }
+
+    function signInWithFirebase() {
+      const provider = new GoogleAuthProvider();
+      const authp = getAuth();
+
+      signInWithPopup(authp, provider)
+        .then(async (result) => {
+        //   const credential = GoogleAuthProvider.credentialFromResult(result);
+        //   const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          console.log(user);
+          console.log('dispatching login');
+          await store.dispatch('doFirebaseLogin', { user: user })
+          .then(() => {
+            router.push({ name: 'Home' })
+            errorMessage.value = null
+          })
+          .catch(error => {
+          // console.log(error.response);
+          console.log(error);
+          errorMessage.value = error.response.data.message ? error.response.data.message : 'Erro ao entrar, tente novamente';
+        });
+        //   console.log(token);
+        //   console.log(credential);
+        //   console.log(result);
+
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.log({ errorCode, errorMessage, email, credential });
+        });
+    }
+
+    return { handleSubmit, email, password, errorMessage, signInWithFirebase }
   },
 }
 </script>

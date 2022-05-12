@@ -3,7 +3,7 @@ import http from '@/http'
 
 const state = {
     token: null,
-    user: {}
+    user: null
 }
 
 const mutations = {
@@ -22,7 +22,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             http.post('/api/public/login', { email, password })
             .then(response => {
-                console.log(response.data)
+                console.log(response)
                 commit('DEFINE_USER_LOGGED', {
                     token: response.data.token,
                     user: response.data
@@ -34,6 +34,15 @@ const actions = {
                 reject(error)
             });
         })
+    },
+    async doFirebaseLogin ({ commit }, { user }) {
+        commit('DEFINE_USER_LOGGED', {
+            token: user.accessToken,
+            user: {
+                name: user.displayName,
+                email: user.email,
+            }
+        });
     },
     async doLogout({ commit }) {
         console.log('logout action');

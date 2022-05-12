@@ -6,6 +6,7 @@
 /vendor
 
 /api/vendor
+/app/node_modules
 
 .env
 .gitignore

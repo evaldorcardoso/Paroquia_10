@@ -5,7 +5,7 @@
         <div class="card-header card-header-rose">
           <h4 class="card-title">Seu informativo digital</h4>
           <p class="card-category" v-if="userIsLogged">
-            Olá {{ userLoggedName }}        
+            Olá {{ userLoggedName }}
           </p>
           <p class="card-category" v-else>
             Para começar, encontre a sua congregação..
@@ -23,14 +23,14 @@
           <table class="table table-hover">
             <thead class="text-rose" />
             <tbody style="border-top: 0px">
-              <tr v-for="congregation in congregations" :key="congregation.id">
+              <tr v-for="congregation in congregations" :key="congregation.uuid">
                   <td
                     style="
                       padding: 12px 8px;
                       vertical-align: middle;
                       border-color: #ddd;
                     "
-                    @click="goToCongregation(congregation.id)"
+                    @click="goToCongregation(congregation.uuid)"
                   >
                     <p
                       style="
@@ -75,20 +75,20 @@ export default {
   methods: {
     getCongregations() {
       http
-        .get("/api/public/congregations")
+        .get("/api/congregations/public")
         .then((response) => {
-          this.congregations = response.data.data;
-          console.log(response.data.data);
+          this.congregations = response.data;
+          console.log(response.data);
           // console.log(this.congregations);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    goToCongregation(id){
+    goToCongregation(uuid){
       this.$router.push({
         name: 'Congregation',
-        params: { id: id }
+        params: { uuid: uuid }
       })
     }
   },
