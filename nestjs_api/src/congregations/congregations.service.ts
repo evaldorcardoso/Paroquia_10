@@ -22,12 +22,12 @@ export class CongregationsService {
     );
   }
 
-  async findAll() {
-    return await this.congregationRepository.find();
-  }
-
   async findOne(uuid: string) {
     return await this.congregationRepository.findOne({ uuid });
+  }
+
+  async findAll() {
+    return await this.congregationRepository.find();
   }
 
   async update(
@@ -48,7 +48,9 @@ export class CongregationsService {
     if (result.affected === 0) {
       throw new NotFoundException('Congregação não encontrada');
     }
-    const congregation = await this.congregationRepository.findOne({ uuid });
+    const congregation = await this.congregationRepository.findOne({
+      uuid,
+    });
     return congregation;
   }
 
@@ -77,7 +79,9 @@ export class CongregationsService {
         'congregation_user',
         'congregation.id = congregation_user.congregation_id',
       )
-      .andWhere('congregation_user.user_id = :userId', { userId: user.id })
+      .andWhere('congregation_user.user_id = :userId', {
+        userId: user.id,
+      })
       .andWhere('congregation.uuid = :uuid', { uuid });
 
     const userHasCongregation = await query.getOne();
