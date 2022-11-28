@@ -19,7 +19,7 @@ Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desej
 * [Firebase Auth] (https://firebase.google.com/products/auth) - Sistema de autenticação do Google
 
 ## 🛠️ 1- Como fazer funcionar a API em Laravel:
-###  É necessário ter o composer(https://getcomposer.org/) instalado na máquina e o Docker
+###  É necessário ter o Docker instalado na máquina e o NodeJS com Yarn ou NPM. 
  * Navegar até a pasta do projeto (laravel_api)
  * Copiar o arquivo **.env.example** para o **.env** no mesmo caminho   
  * Instalar dependências composer
