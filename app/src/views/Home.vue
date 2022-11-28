@@ -75,11 +75,9 @@ export default {
   methods: {
     getCongregations() {
       http
-        .get("/api/congregations/public")
+        .get("/api/public/congregations")
         .then((response) => {
-          this.congregations = response.data;
-          console.log(response.data);
-          // console.log(this.congregations);
+          this.congregations = response.data.data;
         })
         .catch((error) => {
           console.log(error);
