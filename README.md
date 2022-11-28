@@ -16,19 +16,45 @@ Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desej
 * [Docker Compose] (https://docs.docker.com/compose/) - Compose ferramenta para definir e rodar multi-containers Docker
 * [Composer] (https://getcomposer.org/) - Gestor de Dependências PHP
 * [Yarn] (https://yarnpkg.com/) - Gerenciador de Pacotes e Dependências Javascript
+* [Firebase Auth] (https://firebase.google.com/products/auth) - Sistema de autenticação do Google
 
 ## 🛠️ 1- Como fazer funcionar a API em Laravel:
 ###  É necessário ter o composer(https://getcomposer.org/) instalado na máquina e o Docker
  * Navegar até a pasta do projeto (laravel_api)
  * Copiar o arquivo **.env.example** para o **.env** no mesmo caminho   
- * Abrir o terminal e digitar:
- * Instalar as dependências: **composer require laravel/sail --dev**
- * Criar o alias para o sail: **alias sail='bash vendor/bin/sail'**
- * Subir os containers: **sail up -d**
- * Ainda no terminal e rodar as migrations: **sail artisan migrate**
- * Ainda no terminal e rodar as seeders para alimentar o banco de dados: **sail artisan db:seed**
- * Ainda no terminal gerar as chaves de autenticação: **sail artisan passport:keys**
- * Gerar clientid Personal: **sail artisan passport:client --personal**
+ * Instalar dependências composer
+```
+ docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php80-composer:latest \
+    composer install --ignore-platform-req=php+
+```
+ * Criar o alias para o sail:
+```
+alias sail='bash vendor/bin/sail'
+```
+ * Subir os containers: 
+```
+sail up -d
+```
+ * Ainda no terminal e rodar as migrations
+```
+sail artisan migrate
+```
+ * Ainda no terminal e rodar as seeders para alimentar o banco de dados:
+```
+sail artisan db:seed
+```
+ * Ainda no terminal gerar as chaves de autenticação:
+ ```
+ sail artisan passport:keys
+ ```
+ * Gerar ClientID Personal:
+```
+sail artisan passport:client --personal
+```
  * A API estará rodando no endereço: **http://localhost**
 
 ## 🛠️ 2- Como fazer funcionar a API em NestJS:

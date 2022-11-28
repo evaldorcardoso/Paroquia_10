@@ -3,9 +3,11 @@
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
+/nestjs_api/vendor
 
-/api/vendor
+/laravel_api/vendor
+/laravel_api/storage/oauth-private.key
+/laravel_api/storage/oauth-public.key
 /app/node_modules
 
 .env

@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 
 const http = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:80',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
