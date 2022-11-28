@@ -70,12 +70,17 @@ sail artisan passport:client --personal
 
 ## 🛠️ 3- Como fazer funcionar o Front-End:
 * Navegar até a pasta do projeto (app)
-* Abrir o terminal e digitar:
-* Instalar as dependências: **yarn**
-* Rodar o projeto com **yarn serve**
-* Será exibido no terminal o endereço para acessar o aplicativo no navegador
+* Instalar as dependências: 
+```
+yarn ou npm install
+```
+* Rodar o projeto com:
+```
+yarn serve ou npm run serve
+```
+* Será exibido no terminal o endereço para acessar o aplicativo no navegador.
 
-## ✒️ Autor(es)
+## ✒️ Autor
 
 * **Desenvolvedor** - *Projeto Inicial* - [Evaldo R Cardoso](https://github.com/evaldorcardoso)
 
