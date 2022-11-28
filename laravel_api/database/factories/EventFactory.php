@@ -18,8 +18,7 @@ class EventFactory extends Factory
             'event_at' => $this->faker->dateTimeBetween('-1 years', '+1 years'),
             'address' => $this->faker->address,
             'description' => $this->faker->text,
-            'readings' => $this->faker->sentence,
-            'congregation_id' => $this->faker->numberBetween(1, 10)
+            'readings' => $this->faker->sentence
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Congregation;
+use App\Models\Event;
 use Illuminate\Database\Seeder;
 
 class CongregationSeeder extends Seeder
@@ -14,6 +15,9 @@ class CongregationSeeder extends Seeder
      */
     public function run()
     {
-        Congregation::factory()->count(10)->create();
+        Congregation::factory()
+            ->has(Event::factory()->count(2))
+            ->count(10)
+            ->create();
     }
 }

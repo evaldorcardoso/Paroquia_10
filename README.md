@@ -74,6 +74,10 @@ sail artisan passport:client --personal
 ```
 yarn ou npm install
 ```
+* Fix NodeJS breaking change 
+```
+export NODE_OPTIONS=--openssl-legacy-provider
+```
 * Rodar o projeto com:
 ```
 yarn serve ou npm run serve

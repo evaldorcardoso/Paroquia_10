@@ -15,7 +15,7 @@ class CreateCongregationsTable extends Migration
     public function up()
     {
         Schema::create('congregations', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignIdFor(User::class);
             $table->index('user_id');
             $table->string('name', 100);
