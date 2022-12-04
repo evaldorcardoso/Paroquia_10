@@ -16,7 +16,7 @@ class CreateUserTokensTable extends Migration
     {
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignUuid('user_id');
             $table->string('token');
             $table->integer('used')->default(0);
             $table->timestamps();

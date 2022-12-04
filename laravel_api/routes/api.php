@@ -27,8 +27,8 @@ Route::prefix('public')->group(function () {
     Route::get('congregations', [CongregationController::class, 'getAll']);
 });
 Route::middleware('auth:api')->group(function () {
-    Route::resource('user/congregations', CongregationController::class);
     Route::get('user', [PassportAuthController::class, 'show']);
+    Route::resource('user/congregations', CongregationController::class);
     Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
 });
 Route::middleware('auth:api')
