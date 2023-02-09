@@ -23,14 +23,14 @@
           <table class="table table-hover">
             <thead class="text-rose" />
             <tbody style="border-top: 0px">
-              <tr v-for="congregation in congregations" :key="congregation.uuid">
+              <tr v-for="congregation in congregations" :key="congregation.id">
                   <td
                     style="
                       padding: 12px 8px;
                       vertical-align: middle;
                       border-color: #ddd;
                     "
-                    @click="goToCongregation(congregation.uuid)"
+                    @click="goToCongregation(congregation.id)"
                   >
                     <p
                       style="
@@ -44,7 +44,6 @@
                     </p>
                     <p
                       style="
-                        font-size: 85%;
                         margin-bottom: -5px;
                         line-height: 1.5em;
                       "
@@ -66,7 +65,7 @@ import http from "@/http";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Home",
+  name: "HomeView",
   data() {
     return {
       congregations: [],

@@ -6,7 +6,7 @@
           <a href="#">
             <img
               id="img_congregacao"
-              src="https://www.paroquia10.com/images/icone_transp.png"
+              src="@/assets/images/icone_transp.png"
             />
           </a>
         </div>
@@ -70,7 +70,7 @@
                       v-model="congregation.address"
                     />
                   </div>
-                </div>                      
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-10">
@@ -116,9 +116,9 @@
                 </div>
               </div>
               <div class="text-center mt-5">
-                <div id="alert_response"></div>                
+                <div id="alert_response"></div>
                 <button
-                  type="submit"                  
+                  type="submit"
                   class="btn btn-rose pull-center"
                 >
                   Atualizar dados
@@ -167,9 +167,9 @@ export default {
         .then(() => {
           this.alert('Dados atualizados com sucesso!', 'success')
           setTimeout(() => {
-            router.push({ 
+            router.push({
               name: "Congregation",
-              params: { id: this.congregation.id } 
+              params: { id: this.congregation.id }
             });
           }, 2000);
         })

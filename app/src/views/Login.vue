@@ -51,6 +51,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 
 export default {
+  name: 'LoginView',
   setup() {
     // const user = ref({
     //   email: 'admin@admin.com',

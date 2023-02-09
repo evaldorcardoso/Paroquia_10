@@ -1,20 +1,16 @@
 /* font imports */
-@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 /* @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap"); */
 #app {
-    font-family: "Oxygen", "Roboto", "Helvetica", "Arial", sans-serif;
-    -webkit-font-smoothing: antialiased;
+  font-family: 'Ubuntu', sans-serif;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    font-weight: 300;
     line-height: 1.5em;
-    background-color: #eee;
     color: #3c4858;
-    font-weight: 300;
+    margin-top: 90px;
 }
 h4 {
-    font-size: 1.125rem;
     line-height: 1.4em;
     font-weight: 300;
 }
@@ -70,8 +66,8 @@ h4 {
     background: #fff;
 }
 .card-avatar img {
-    width: 100%;
-    height: auto;
+    width: 100px;
+    height: 100px;
 }
 .form-control {
     border: 0;

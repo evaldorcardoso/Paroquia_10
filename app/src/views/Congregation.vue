@@ -27,11 +27,11 @@
     </div>
     <div class="row mt-3">
       <div class="col-lg-12 col-md-12">
-        <div class="card">
+        <div class="card" style="margin-top:25px">
           <div class="card-header card-header-rose">
-            <h5 class="card-title text-center" style="font-size: 98%">
-              Próximos eventos desta congregação:
-            </h5>
+            <h6 class="card-title text-center">
+              Próximos eventos:
+            </h6>
             <p class="card-category"></p>
           </div>
           <div class="card-body table-responsive">
@@ -71,6 +71,7 @@ import http from "@/http";
 import moment from 'moment'
 
 export default {
+  name: 'CongregationView',
   data() {
     return {
       congregation: {},
@@ -83,7 +84,7 @@ export default {
     },
     getCongregation(uuid) {
       http
-        .get("/api/congregations/public/" + uuid)
+        .get("/api/public/congregations/" + uuid)
         .then((response) => {
           this.congregation = response.data.data;
           console.log(response.data.data);

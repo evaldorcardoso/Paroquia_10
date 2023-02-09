@@ -13,12 +13,12 @@
               <div class="row">
                 <h3 class="card-description">
                     {{ event.title }}
-                </h3>     
+                </h3>
               </div>
               <div class="row">
                 <p class="card-description">
                     {{ event.description }}
-                </p>     
+                </p>
               </div>
               <div class="row">
                 <i class="material-icons" style="float:left;width:auto">bookmarks</i>
@@ -28,7 +28,7 @@
                 <p class="card-description">
                     {{ event.readings }}
                 </p>
-              </div>              
+              </div>
             </div>
         </div>
         <div class="card-footer">
@@ -50,6 +50,7 @@ import http from "@/http"
 import moment from 'moment'
 
 export default {
+  name: 'EventView',
   data() {
     return {
       event: {},
@@ -85,7 +86,7 @@ export default {
         params: { id: id },
       });
     },
-    formatDate(value){      
+    formatDate(value){
       return moment(value).locale('pt-br').format('lll')
     },
   },
