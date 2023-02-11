@@ -53,25 +53,20 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 export default {
   name: 'LoginView',
   setup() {
-    // const user = ref({
-    //   email: 'admin@admin.com',
-    //   password: '123456',
-    // })
-
     const firebaseConfig = {
-        apiKey: "AIzaSyD3jX8MJVpo-U01g7IafuHwgO7pRB96uBA",
-        authDomain: "paroquia-10.firebaseapp.com",
-        databaseURL: "https://paroquia-10.firebaseio.com",
-        projectId: "paroquia-10",
-        storageBucket: "paroquia-10.appspot.com",
-        messagingSenderId: "761038367071",
-        appId: "1:761038367071:web:bfb2f50a4b501ed565eeea",
+        apiKey: process.env.FIREBASE_API_KEY,
+        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+        databaseURL: process.env.FIREBASE_DATABASE_URL,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.FIREBASE_APP_ID,
     };
 
     initializeApp(firebaseConfig);
 
-    const email = ref('admin@admin.com')
-    const password = ref('password')
+    const email = ref()
+    const password = ref()
     const errorMessage = ref(null)
 
     const store = useStore()
