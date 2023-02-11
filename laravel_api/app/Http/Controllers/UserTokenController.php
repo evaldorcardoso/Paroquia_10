@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserToken;
+use App\Mail\RegisterMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class UserTokenController extends Controller
 {
     public function create(Request $request){
-        $userId = $request->user_id;        
+        $userId = $request->user_id;
         $user = User::find($userId);
         if(!$user){
             return response()->json([
@@ -18,16 +19,16 @@ class UserTokenController extends Controller
             ], 404);
         }
         $lastToken = UserToken::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
-        if($lastToken){                   
+        if($lastToken){
             //retorno token existente
             if($lastToken->used == 0){
                 $details = [
                     'title' => 'Agora só falta ativar a sua conta no App Paróquia 10!',
                     'name' => $user->name,
                     'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
-                    'url' => config('app.url').'/api/user/'.$userId.'/activate/'.$lastToken->token
+                    'url' => config('app.url').'/api/public/user/'.$userId.'/activate/'.$lastToken->token
                 ];
-                Mail::to($user->email)->send(new \App\Mail\RegisterMail($details));        
+                Mail::to($user)->send(new RegisterMail($details));
 
                 return response()->json([
                     'message' => 'Token sent',
@@ -35,20 +36,20 @@ class UserTokenController extends Controller
                 ], 200);
             }
             if($lastToken->created_at->diffInHours() > 2){
-                //crio novo token                    
+                //crio novo token
                 $token = UserToken::create([
                     'user_id' => $userId,
                     'token' => md5(uniqid(rand(), true))
                 ]);
-                
+
             }
-            else{    
+            else{
                 return response()->json([
                     'message' => 'Too many tokens in interval, wait at least 2 hours'
                 ], 400);
-            }            
+            }
         }else{
-            //crio novo token                    
+            //crio novo token
             $token = UserToken::create([
                 'user_id' => $userId,
                 'token' => md5(uniqid(rand(), true))
@@ -61,7 +62,7 @@ class UserTokenController extends Controller
             'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
             'url' => env('APP_URL').'/api/user/'.$userId.'/activate/'.$token->token
         ];
-        Mail::to($user->email)->send(new \App\Mail\RegisterMail($details)); 
+        Mail::to($user->email)->send(new \App\Mail\RegisterMail($details));
 
         return response()->json([
             'message' => 'Token created',
@@ -102,14 +103,20 @@ class UserTokenController extends Controller
         }
         $tokenToUse = UserToken::where('user_id', $userToActivate->id)->where('token', $token)->first();
         if(!$tokenToUse){
-            return response()->json([
-                'error' => 'Token invalid'
-            ], 401);
+            return view('advice', [
+                'details' => ['message' => 'Token inválido, tente se registrar novamente!']
+            ]);
+            // return response()->json([
+            //     'error' => 'Token inválido, tente se registrar novamente!'
+            // ], 401);
         }
         if($tokenToUse->used == 1){
-            return response()->json([
-                'error' => 'Token already used'
-            ], 401);
+            return view('advice', [
+                'details' => ['message' => 'Esta conta já foi ativada!']
+            ]);
+            // return response()->json([
+            //     'error' => 'Token already used'
+            // ], 401);
         }
         if($userToActivate->active == 0){
             $userToActivate->active = 1;
@@ -117,8 +124,11 @@ class UserTokenController extends Controller
         }
         $tokenToUse->used = 1;
         $tokenToUse->save();
-        return response()->json([
-            'message' => 'User activated'
-        ], 200);
+        return view('advice', [
+            'details' => ['message' => 'Conta ativada com sucesso!']
+        ]);
+        // return response()->json([
+        //     'message' => 'User activated'
+        // ], 200);
     }
 }
