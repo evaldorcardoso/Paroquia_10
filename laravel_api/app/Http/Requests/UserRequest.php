@@ -37,7 +37,6 @@ class UserRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:100',            
             'password' => 'string|min:6|confirmed',
-            'active' => 'required|boolean'
         ];
 
         switch($this->method())

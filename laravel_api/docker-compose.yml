@@ -41,6 +41,10 @@ services:
             - 'sailmysql:/var/lib/mysql'
         networks:
             - sail
+        entrypoint: sh -c "echo 'CREATE DATABASE IF NOT EXISTS ${DB_DATABASE}_test; GRANT ALL ON \`${DB_DATABASE}_test\`.* TO \`${DB_USERNAME}\`@'%' ;' > /docker-entrypoint-initdb.d/init.sql && /entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+
+
+
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3

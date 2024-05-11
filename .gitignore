@@ -8,6 +8,7 @@
 /laravel_api/vendor
 /laravel_api/storage/oauth-private.key
 /laravel_api/storage/oauth-public.key
+/laravel_api/tests/coverage/*
 /app/node_modules
 
 .env
