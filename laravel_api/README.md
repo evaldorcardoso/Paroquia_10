@@ -21,3 +21,10 @@ Example:
 ```
 sail artisan up
 ```
+
+
+### Access the email web interface at:
+
+```
+http://localhost:8025/
+```

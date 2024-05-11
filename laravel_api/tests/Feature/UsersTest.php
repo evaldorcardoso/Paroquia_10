@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Laravel\Passport\Passport;
 use Laravel\Sanctum\Sanctum;
+use App\Models\UserToken;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -28,26 +28,21 @@ class UsersTest extends TestCase
         $additionalFields = [
             'password' => '12345678',
             'password_confirmation' => '12345678',
-        ];
+        ];        
         $user = array_merge($this->user, $additionalFields);
+
         $response = $this->post('/api/public/register', $user);
+
         $response->assertStatus(201);
         $this->assertDatabaseHas('users', [
             'name' => $this->user['name'],
-            'email' => $this->user['email']
+            'email' => $this->user['email'],
+            'active' => 0
         ]);
-    }
-
-    /**
-     * Teste de criação de token de usuário.
-     * @test
-     */
-    public function createToken()
-    {
-        $user = User::factory()->create();
-        $response = $this->post('/api/public/token/create', ['user_id' => $user->id]);
-        $response->assertStatus(201);
-        $response->assertJsonStructure(['token']);
+        $this->assertDatabaseHas('user_tokens', [
+            'user_id' => $response->json('data')['id'],
+            'used' => 0
+        ]);
     }
 
     /**
@@ -57,11 +52,15 @@ class UsersTest extends TestCase
     public function verify()
     {
         $user = User::factory()->create();
-        $response = $this->post('/api/public/token/create', ['user_id' => $user->id]);
+        $userToken = UserToken::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
         $response = $this->post('/api/public/token/verify', [
             'user_id' => $user->id,
-            'token' => $response['token']
+            'token' => $userToken->token
         ]);
+
         $response->assertStatus(200);
     }
 
@@ -72,18 +71,22 @@ class UsersTest extends TestCase
     public function activate()
     {
         $user = User::factory()->create();
-        $response = $this->post('/api/public/token/create', ['user_id' => $user->id]);
-        $activateResponse = $this->get('/api/public/user/'.$user->id.'/activate/'.$response['token']);
+        $userToken = UserToken::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $activateResponse = $this->get('/api/public/user/'.$user->id.'/activate/'.$userToken->token);
+
+        $activateResponse->assertViewIs('advice')->assertStatus(200);
         $this->assertDatabaseHas('user_tokens', [
             'user_id' => $user->id,
-            'token' => $response['token'],
+            'token' => $userToken->token,
             'used' => 1
         ]);
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'active' => 1
         ]);
-        $activateResponse->assertViewIs('advice')->assertStatus(200);
     }
     
     /**
@@ -121,8 +124,6 @@ class UsersTest extends TestCase
             'email' => $this->user['email']
         ]);
     }
-
-    
 
     /**
      * Teste de alteração de usuário.

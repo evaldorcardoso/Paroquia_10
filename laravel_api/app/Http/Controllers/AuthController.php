@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Response;
+use App\Mail\RegisterMail;
+use App\Models\UserToken;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -27,6 +30,19 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
+        $userToken = UserToken::create([
+            'user_id' => $user->id,
+            'token' => md5(uniqid(rand(), true))
+        ]);
+
+        $details = [
+            'title' => 'Agora só falta ativar a sua conta no App Paróquia 10!',
+            'name' => $user->name,
+            'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
+            'url' => config('app.url').'/api/public/user/'.$user->id.'/activate/'.$userToken->token
+        ];
+        Mail::to($user)->send(new RegisterMail($details));
+
         return response()->json(['success' => true,'data' => $user], Response::HTTP_CREATED);
     }
 
@@ -43,8 +59,7 @@ class AuthController extends Controller
 
         if (! $user || ! Hash::check($data['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'email' => 'The provided credentials are incorrect.',
-                'password' => 'The provided credentials are incorrect.'
+                'user' => 'The provided credentials are incorrect.'
             ]);
         }
 
