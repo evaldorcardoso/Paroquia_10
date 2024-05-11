@@ -19,8 +19,9 @@ class EventController extends Controller
     {
         $event = Event::where('congregation_id', $congregation)->with('congregation')->find($id);
 
-        if(!$event)
+        if(!$event) {
             return response()->json(['success' => false,'message' => 'Event not found']);
+        }
             
         return response()->json(['success' => true,'data' => $event]);
     }
@@ -29,13 +30,18 @@ class EventController extends Controller
     {
         $id_congregation = auth()->user()->congregation->id;
 
-        if ($id_congregation != $congregation)
-            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
+        if ($id_congregation != $congregation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Congregation not found'
+            ], 400);
+        }
         
         $event = auth()->user()->congregation->events()->create($request->validated());
 
-        if(!$event)
+        if(!$event) {
             return response()->json(['success' => false,'message' => 'Event not created'], 500);
+        }
 
         return response()->json(['success' => true,'data' => $event]);
     }
@@ -44,27 +50,33 @@ class EventController extends Controller
     {
         $id_congregation = auth()->user()->congregation->id;
 
-        if ($id_congregation != $congregation)
-            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
+        if ($id_congregation != $congregation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Congregation not found'
+            ], 400);
+        }
 
         $event = auth()->user()->congregation->events()->find($id);
 
-        if(!$event)
+        if(!$event) {
             return response()->json(['success' => false,'message' => 'Event not found'], 400);
+        }
 
         $event->update($request->validated());
 
-        if(!$event)
+        if(!$event) {
             return response()->json(['success' => false,'message' => 'Event not updated'], 500);
+        }
         
         return response()->json(['success' => true,'data' => $event]);
     }
 
-    public function search(Request $request){
-        // $filters = $request->except('_token');
+    public function search(Request $request)
+    {
         $events = Event::where('title','LIKE',"%{$request->search}%")
-                            ->orWhere('description','LIKE',"%{$request->search}%")
-                            ->get();
+            ->orWhere('description','LIKE',"%{$request->search}%")
+            ->get();
 
         return response()->json(['success' => true,'data' => $events]);
     }
@@ -73,16 +85,22 @@ class EventController extends Controller
     {
         $id_congregation = auth()->user()->congregation->id;
 
-        if ($id_congregation != $congregation)
-            return response()->json(['success' => false,'message' => 'Congregation not found'], 400);
+        if ($id_congregation != $congregation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Congregation not found'
+            ], 400);
+        }
 
         $event = auth()->user()->congregation->events()->find($id);
 
-        if (!$event)
+        if (!$event) {
             return response()->json(['success' => false,'message' => 'Event not found'], 400);
+        }
 
-        if(!$event->delete())
+        if(!$event->delete()) {
             return response()->json(['success' => false,'message' => 'Event could not be deleted']);
+        }
 
         return response()->json(['success' => true]);        
     }

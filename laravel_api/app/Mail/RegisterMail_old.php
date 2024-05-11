@@ -29,7 +29,6 @@ class RegisterMail_old extends Mailable
      */
     public function build()
     {
-        return $this->subject('Email from Paroquia10')
-                    ->view('mail.register-mail');
+        return $this->subject('Email from Paroquia10')->view('mail.register-mail');
     }
 }

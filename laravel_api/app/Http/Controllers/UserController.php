@@ -11,13 +11,21 @@ class UserController extends Controller
     {
         $user = User::find(auth()->user()->id);
 
-        if (!$user)
-            return response()->json(['success' => false,'message' => 'user with id ' . $id . ' not found'], 400);
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'user with id ' . $id . ' not found'
+            ], 400);
+        }
         
         $user = $user->update($request->except('email'));
             
-        if (!$user)
-            return response()->json(['success' => false,'message' => 'User could not be updated'], 500);
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User could not be updated'
+            ], 500);
+        }
             
         return response()->json(['success' => true]);        
     }

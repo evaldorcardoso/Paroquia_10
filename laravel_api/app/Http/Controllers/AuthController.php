@@ -38,7 +38,8 @@ class AuthController extends Controller
         $details = [
             'title' => 'Agora só falta ativar a sua conta no App Paróquia 10!',
             'name' => $user->name,
-            'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao cadastro de congregações e muito mais:',
+            'body' => 'Clique no botão abaixo para ativar a sua conta e tenha acesso ao 
+                cadastro de congregações e muito mais:',
             'url' => config('app.url').'/api/public/user/'.$user->id.'/activate/'.$userToken->token
         ];
         Mail::to($user)->send(new RegisterMail($details));

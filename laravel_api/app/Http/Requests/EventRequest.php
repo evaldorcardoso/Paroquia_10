@@ -42,7 +42,8 @@ class EventRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'title.required' => 'O campo título é obrigatório',
             'title.max' => 'O campo título deve ter no máximo 50 caracteres',
@@ -55,7 +56,8 @@ class EventRequest extends FormRequest
         ];
     }
 
-    public function prepareForValidation(){
+    public function prepareForValidation()
+    {
         if(auth()->user())
         {
             $this->merge([
