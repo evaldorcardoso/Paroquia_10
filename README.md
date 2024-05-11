@@ -9,7 +9,6 @@ Paróquia10 é um aplicativo Web PWA feito para congregações/igrejas que desej
 ## 🛠️ Em construção utilizando:
 
 * [Laravel](https://laravel.com/) - Framework PHP - Api Back-end
-* [NestJS](https://nestjs.com/) - A progressive Node.js framework - Api Back-end
 * [Vue] (https://v3.vuejs.org/) - Framework progressivo para a construção de interfaces de usuário - Aplicativo Front-end
 * [MySQL](https://www.mysql.com/) - Banco de Dados
 * [Docker] (https://www.docker.com/) - Ambiente de execução com containers
@@ -57,18 +56,8 @@ sail artisan passport:client --personal
 ```
  * A API estará rodando no endereço: **http://localhost**
 
-## 🛠️ 2- Como fazer funcionar a API em NestJS:
-###  É necessário ter o yarn(https://yarnpkg.com/) instalado na máquina e o Docker Compose
- * Navegar até a pasta do projeto (nestjs_api)
- * Copiar o arquivo **.env.example** para o **.env** no mesmo caminho   
- * Abrir o terminal e digitar:
- * Instalar as dependências: **yarn**
- * Subir os containers: **docker-compose up**
- * Ainda no terminal iniciar o projeto: **yarn start:dev**
- * A API estará rodando no endereço: **http://localhost:3000**
 
-
-## 🛠️ 3- Como fazer funcionar o Front-End:
+## 🛠️ 2- Como fazer funcionar o Front-End:
 * Navegar até a pasta do projeto (app)
 * Instalar as dependências: 
 ```
