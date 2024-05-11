@@ -92,8 +92,6 @@ class UsersTest extends TestCase
      */
     public function login()
     {
-        Artisan::call('passport:install');
-        Artisan::call('passport:keys');
         $user = User::factory()->active()->create();
         Passport::actingAs($user);
         $response = $this->post('/api/public/login', [

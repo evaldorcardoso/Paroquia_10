@@ -1,4 +1,4 @@
-# Reformulando Paroquia10 com Laravel/NestJS e Vuejs(3.x) - (Em Andamento)
+# Reformulando Paroquia10 com Laravel e Vue.js - (Em Andamento)
 
 Um verdadeiro Informativo Digital!
 
