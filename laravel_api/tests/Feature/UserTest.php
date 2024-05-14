@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Passport\Passport;
 use Laravel\Sanctum\Sanctum;
 use App\Models\UserToken;
 use App\Models\User;
 use Tests\TestCase;
 
-class UsersTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,12 +20,10 @@ class UsersTest extends TestCase
         'email' => 'teste@teste.com.br',
     );
     
-    /**
-     * Teste de registro de usuário.
-     * @test
-     */
-    public function register()
+    public function testRegisterUser()
     {
+        Mail::fake();
+        
         $additionalFields = [
             'password' => '12345678',
             'password_confirmation' => '12345678',
@@ -45,11 +44,7 @@ class UsersTest extends TestCase
         ]);
     }
 
-    /**
-     * Teste de verificação de token de usuário.
-     * @test
-     */
-    public function verify()
+    public function testVerifyUserToken()
     {
         $user = User::factory()->create();
         $userToken = UserToken::factory()->create([
@@ -64,11 +59,7 @@ class UsersTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** 
-     * Teste de ativação de usuário.
-     * @test
-     */
-    public function activate()
+    public function testActivateUserToken()
     {
         $user = User::factory()->create();
         $userToken = UserToken::factory()->create([
@@ -89,11 +80,7 @@ class UsersTest extends TestCase
         ]);
     }
     
-    /**
-     * Teste de autenticação de usuário.
-     * @test
-     */
-    public function login()
+    public function testLoginUser()
     {
         $user = User::factory()->active()->create();
         Passport::actingAs($user);
@@ -105,11 +92,7 @@ class UsersTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /**
-     * Teste de exibir usuário logado.
-     * @test
-     */
-    public function show()
+    public function testShowALoggedUser()
     {
         Sanctum::actingAs(User::factory()->create([
             'name' => $this->user['name'],
@@ -125,11 +108,7 @@ class UsersTest extends TestCase
         ]);
     }
 
-    /**
-     * Teste de alteração de usuário.
-     * @test
-     */
-    public function update()
+    public function testUpdateUser()
     {
         $user = User::factory()->create([
             'name' => $this->user['name'],

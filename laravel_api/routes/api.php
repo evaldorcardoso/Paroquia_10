@@ -31,7 +31,10 @@ Route::prefix('public')->group(function () {
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'show']);
-    Route::resource('user/congregations', CongregationController::class, ['except' => ['show']]);
+    Route::post('user/congregation', [CongregationController::class, 'store']);
+    Route::get('user/congregation', [CongregationController::class, 'show']);
+    Route::delete('user/congregation', [CongregationController::class, 'destroy']);
+    Route::put('user/congregation', [CongregationController::class, 'update']);
     Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
 });
 Route::middleware('auth:api')

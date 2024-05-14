@@ -4,82 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CongregationRequest;
 use App\Models\Congregation;
+use Symfony\Component\HttpFoundation\Response;
 
 class CongregationController extends Controller
 {
-    public function index()
-    {
-        $congregations = auth()->user()->congregations;
-
-        return response()->json(['success' => true,'data' => $congregations]);
-    }
-
-    public function show($id)
+    public function show()
     {
         $congregation = auth()->user()->congregation;
 
         if (!$congregation) {
             return response()->json([
                 'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
+                'message' => 'Congregation not found'
+            ], Response::HTTP_BAD_REQUEST);
         }
 
-        return response()->json(['success' => true,'data' => $congregation->toArray()], 200);
+        return response()->json(['success' => true,'data' => $congregation]);
     }
 
     public function store(CongregationRequest $request)
     {
-        $congregation = auth()->user()->congregation->save($request->validated());
-        if(!$congregation) {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        $congregation = $user->congregation()->create($request->validated());
+        if(! $congregation) {
             return response()->json([
                 'success' => false,
                 'message' => 'Congregation could not be added'
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
                     
-        return response()->json(['success' => true,'data' => $congregation]);
+        return response()->json(['success' => true,'data' => $congregation], Response::HTTP_CREATED);
     }
 
-    public function update(CongregationRequest $request, $id)
+    public function update(CongregationRequest $request)
     {
-        $id_congregation = auth()->user()->congregation->id;
+        $congregation = auth()->user()->congregation->id;
 
-        if ($id_congregation != $id) {
+        if (! $congregation) {
             return response()->json([
                 'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
+                'message' => 'Congregation not found'
+            ], Response::HTTP_NOT_FOUND);
         }    
 
         $congregation = auth()->user()->congregation->update($request->validated());        
         
-        if (!$congregation) {
+        if (! $congregation) {
             return response()->json([
                 'success' => false,
                 'message' => 'Congregation could not be updated'
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
                     
-        return response()->json(['success' => true]);        
+        return response()->json(['success' => true]);
     }
 
-    public function destroy($id)
+    public function destroy()
     {
-        $id_congregation = auth()->user()->congregation->id;
+        $congregation = auth()->user()->congregation;
 
-        if ($id_congregation != $id) {
+        if (! $congregation) {
             return response()->json([
                 'success' => false,
-                'message' => 'Congregation with id ' . $id . ' not found'
-            ], 400);
+                'message' => 'Congregation not found'
+            ], Response::HTTP_NOT_FOUND);
         }
 
-        if (!auth()->user()->congregation->delete()) {
+        if (! auth()->user()->congregation->delete()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Congregation could not be deleted'
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         
         return response()->json(['success' => true]);        

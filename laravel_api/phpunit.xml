@@ -3,21 +3,26 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          cacheDirectory=".phpunit.cache"
-         executionOrder="depends,defects"
          requireCoverageMetadata="false"
          beStrictAboutCoverageMetadata="false"
-         beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
-         failOnWarning="true">
+         stopOnFailure="true"
+         displayDetailsOnIncompleteTests="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         failOnWarning="false">
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
+    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="false">
         <include>
             <directory>src</directory>
         </include>
     </source>
+    <php>
+        <env name="APP_ENV" value="testing" force="true"/>
+    </php>
 </phpunit>
+

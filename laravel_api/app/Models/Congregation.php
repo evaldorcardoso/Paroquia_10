@@ -23,6 +23,15 @@ class Congregation extends Model
         'image'
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     public function events()
     {
         return $this->hasMany(Event::class);
